@@ -20,10 +20,18 @@
         
         <!-- Main Content -->
         <div class="w-full lg:w-1/2 p-8">
+            {% if messages %}
+                <div>
+                    {% for message in messages %}
+                        <div class="alert {{ message.tags }}">{{ message }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
             <h2 class="text-3xl font-extrabold text-gray-900 mb-6 text-center">Connexion</h2>
             <p class="text-sm text-gray-600 text-center mb-6">
             </p>
-            <form action="#" method="POST" class="space-y-6">
+            <form action="{% url 'login' %}" method="POST" class="space-y-6">
+                {% csrf_token %}
                 <div>
                     <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
                     <div class="mt-1">

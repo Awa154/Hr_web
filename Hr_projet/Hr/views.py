@@ -3,16 +3,16 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.hashers import make_password
 from django.contrib import messages
 from .models import Utilisateurs, Employe, Entreprise, Administrateur
+from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login
+from django.contrib import messages
+from django.contrib.auth.hashers import check_password
 
 # Create your views here.
 
 #Fonction pour retourner la vue vers la page d'accueil
 def home(request):
     return render(request,'home/home.html', {'active_page': 'home'})
-
-#Fonction pour retourner la vue vers la page de connexin
-def login(request):
-    return render(request,'auth/login.html')
 
 #Fonction pour retourner la vue vers la page des différents services offerts par l'agence
 def services(request):
@@ -126,19 +126,56 @@ def createCompte(request):
         return redirect('createCompte')  # Redirige vers la page d'inscription ou une autre page de votre choix
     return render(request, "admin/comptes/create.html")
 
+#Fonction pour retourner la vue vers la page d'accueil
+def homeEmploye(request):
+    return render(request,'home/employes/home.html', )
+
 #Fonction pour retourner la vue vers la page de la mise à jour du profil d'un employe
 def editEmploye(request):
-    return render(request,'admin/employes/edit.html')
-
-#Fonction pour retourner la vue vers la page de la mise à jour du profil d'une entreprise
-def editEntreprise(request):
-    return render(request,'admin/entrepises/edit.html')
-
+    return render(request,'home/employes/edit.html')
 
 #Fonction pour retourner la vue vers la page de la liste des employes
 def listeEmploye(request):
     return render(request,'admin/employes/liste.html')
 
+
+#Fonction pour retourner la vue vers la page de la mise à jour du profil d'une entreprise
+def editEntreprise(request):
+    return render(request,'home/entrepises/edit.html')
+
+#Fonction pour retourner la vue vers la page d'accueil
+def homeEntreprise(request):
+    return render(request,'home/employes/home.html')
+
 #Fonction pour retourner la vue vers la page de la liste des entreprises
 def listeEntreprise(request):
     return render(request,'admin/entreprises/liste.html')
+
+#Fonction pour retourner la vue vers la page de login
+def login(request):
+    if request.method == "POST":
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+
+        # Récupérer l'utilisateur avec l'email donné
+        try:
+            user = Utilisateurs.objects.get(email=email)
+            if check_password(password, user.password):
+                # Créer une session pour l'utilisateur
+                request.session['user_id'] = user.id
+                messages.success(request, "Vous êtes maintenant connecter!")
+
+                # Redirection basée sur le rôle
+                if user.role == "AD":
+                    return redirect('adminPage')  # Rediriger vers la page d'administration
+                elif user.role == "EM":
+                    return redirect('homeEmploye')  # Rediriger vers la page employé
+                elif user.role == "EN":
+                    return redirect('homeEntreprise')  # Rediriger vers la page entreprise
+            else:
+                messages.error(request, "Email ou mot de passe incorrect.")
+        except Utilisateurs.DoesNotExist:
+            messages.error(request, "Email ou mot de passe incorrect.")
+
+    return render(request, "auth/login.html")
+
