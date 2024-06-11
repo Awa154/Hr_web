@@ -1,42 +1,19 @@
 {% extends 'admin/baseAdmin.html' %}
 {% block content %}
     <!-- Cards -->
+    
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         <!-- Employees Card -->
         <div class="bg-white p-6 rounded-lg shadow-lg">
-            <h3 class="text-xl font-semibold mb-4"><i class="fas fa-users"></i> Gérer les Employés</h3>
-            <p class="text-gray-700 mb-4">Ajouter, modifier ou supprimer des employés du système.</p>
-            <button class="bg-gradient-to-r text-white px-4 py-2 rounded">Voir les Employés</button>
+            <h3 class="text-xl font-semibold mb-4"><i class="fas fa-users"></i> Employés</h3>
         </div>
         <!-- Companies Card -->
         <div class="bg-white p-6 rounded-lg shadow-lg">
             <h3 class="text-xl font-semibold mb-4"><i class="fas fa-handshake"></i> Entreprises Partenaires</h3>
-            <p class="text-gray-700 mb-4">Gérer les partenariats avec diverses entreprises.</p>
-            <button class="bg-gradient-to-r text-white px-4 py-2 rounded">Voir les Entreprises</button>
-        </div>
-        <!-- Account Creation Card -->
-        <div class="bg-white p-6 rounded-lg shadow-lg">
-            <h3 class="text-xl font-semibold mb-4"><i class="fas fa-user-plus"></i> Création de Comptes</h3>
-            <p class="text-gray-700 mb-4">Créer de nouveaux comptes pour les employés et les partenaires.</p>
-            <button class="bg-gradient-to-r text-white px-4 py-2 rounded">Créer un Compte</button>
-        </div>
-        <!-- Feedback Management Card -->
-        <div class="bg-white p-6 rounded-lg shadow-lg">
-            <h3 class="text-xl font-semibold mb-4"><i class="fas fa-comments"></i> Gérer les Feedbacks</h3>
-            <p class="text-gray-700 mb-4">Réviser et répondre aux feedbacks des employés et des partenaires.</p>
-            <button class="bg-gradient-to-r text-white px-4 py-2 rounded">Gérer les Feedbacks</button>
         </div>
         <!-- Notifications Card -->
         <div class="bg-white p-6 rounded-lg shadow-lg">
             <h3 class="text-xl font-semibold mb-4"><i class="fas fa-bell"></i> Notifications</h3>
-            <p class="text-gray-700 mb-4">Envoyer des notifications aux employés et aux partenaires.</p>
-            <button class="bg-gradient-to-r text-white px-4 py-2 rounded">Voir les Notifications</button>
-        </div>
-        <!-- Job Postings Card -->
-        <div class="bg-white p-6 rounded-lg shadow-lg">
-            <h3 class="text-xl font-semibold mb-4"><i class="fas fa-briefcase"></i> Poster des Offres</h3>
-            <p class="text-gray-700 mb-4">Créer et publier des offres d'emploi.</p>
-            <button class="bg-gradient-to-r text-white px-4 py-2 rounded">Poster une Offre</button>
         </div>
     </div>
 {% endblock content %}
