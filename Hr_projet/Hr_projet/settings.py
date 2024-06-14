@@ -50,6 +50,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'Hr.middleware.AuthenticationMiddleware',
+    'Hr.middleware.ProtectUrls',
 ]
 
 ROOT_URLCONF = 'Hr_projet.urls'
@@ -79,7 +81,7 @@ WSGI_APPLICATION = 'Hr_projet.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'hr_projet',
+        'NAME': 'hr_bd',
         'USER':'root',
         'PASSWORD':'',
         'HOST': '127.0.0.1',
@@ -129,3 +131,12 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL=False
+EMAIL_HOST_USER = 'kemiadjiou071@gmail.com'
+EMAIL_HOST_PASSWORD = 'gelgaaodboqkxnkt'

@@ -4,7 +4,7 @@
     {% if messages %}
         <div class="mb-4">
             {% for message in messages %}
-                <div class="bg-gradient-to-k text-black text-center px-4 py-2 rounded shadow-md">
+                <div class="bg-gradient-to-r text-black text-center px-4 py-2 rounded shadow-md">
                     {{ message }}
                 </div>
             {% endfor %}
@@ -13,6 +13,7 @@
     <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         <h2 class="text-2xl font-bold mb-6 text-center">Créer un compte</h2>
+        <p class="mt-1 text-sm leading-6 text-gray-600">Veuillez remplir les informations suivantes pour créer un compte.</p>
         <div class="mb-4 flex space-x-4">
             <div class="w-1/2">
                 <label for="nom" class="block text-gray-700 font-bold">Nom:</label>
@@ -48,7 +49,7 @@
             </div>
         </div>
         <div class="mb-4 flex items-center">
-            <label for="roles" class="block text-gray-700 text-sm font-bold mr-2">Rôle:</label>
+            <label for="role" class="block text-gray-700 text-sm font-bold mr-2">Rôle:</label>
             <div class="flex space-x-4">
                 <div class="flex items-center">
                     <input type="radio" name="role" value="AD" class="mr-1">
@@ -130,31 +131,33 @@
             </div>
         </div>
         <div class="mt-6 flex items-center justify-end gap-x-6">
-            <button type="button" class="text-sm font-semibold leading-6 text-gray-900">Annuler</button>
-            <button type="submit" class="rounded-md bg-gradient-to-r px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Enregistrer</button>
+            <a href="{% url 'adminPage' %}" class="rounded-md text-sm font-semibold leading-6 text-gray-900 hover:bg-red-200 py-2 px-4">
+                Annuler
+            </a>
+            <button type="submit" class="rounded-md bg-gradient-to-r px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-sky-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Enregistrer</button>
         </div>
     </form>
 </div>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const roleField = document.getElementsByName('role');
+    document.addEventListener('DOMContentLoaded', function() {
+        const roleInputs = document.querySelectorAll('input[name="role"]');
         const employeFields = document.getElementById('employe-fields');
-        const entrepriseFields = document.getElementById('entreprise-fields');
         const adminFields = document.getElementById('admin-fields');
+        const entrepriseFields = document.getElementById('entreprise-fields');
 
-        roleField.forEach(function (radio) {
-            radio.addEventListener('change', function () {
+        roleInputs.forEach(input => {
+            input.addEventListener('change', function() {
                 employeFields.classList.add('hidden');
-                entrepriseFields.classList.add('hidden');
                 adminFields.classList.add('hidden');
-                
+                entrepriseFields.classList.add('hidden');
+
                 if (this.value === 'EM') {
                     employeFields.classList.remove('hidden');
-                } else if (this.value === 'EN') {
-                    entrepriseFields.classList.remove('hidden');
                 } else if (this.value === 'AD') {
                     adminFields.classList.remove('hidden');
+                } else if (this.value === 'EN') {
+                    entrepriseFields.classList.remove('hidden');
                 }
             });
         });

@@ -1,0 +1,37 @@
+{% extends 'home/baseProfile.html' %}
+{% block content %}  
+<div class="border-b border-gray-900/10 pb-12">
+    <h2 class="text-base font-semibold leading-7 text-gray-900">Informations professionel</h2>
+    <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+        <div class="sm:col-span-3">
+            <label for="domaine" class="block text-sm font-medium leading-6 text-gray-900">Domaine</label>
+            <div class="mt-2">
+            <input id="domaine" name="domaine" type="text" value="{{ employe_info.domaine }}" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+            </div>
+        </div>
+        <div class="sm:col-span-3">
+            <label for="departement" class="block text-sm font-medium leading-6 text-gray-900">Département</label>
+            <div class="mt-2">
+            <input id="departement" name="departement" type="text" value="{{ employe_info.departement }}" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+            </div>
+        </div>
+        <div class="sm:col-span-3">
+            <label for="competence" class="block text-sm font-medium leading-6 text-gray-900">Compétences</label>
+            <div class="mt-2">
+            <input id="competence" name="competence" type="text" value="{{ employe_info.competence }}" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+            </div>
+        </div>
+        <div class="sm:col-span-3">
+            <label for="annee_exp" class="block text-sm font-medium leading-6 text-gray-900">Années d'expérience</label>
+            <div class="mt-2">
+            <input id="annee_exp" name="annee_exp" type="number" value="{{ employe_info.annee_exp }}" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+            </div>
+        </div>
+    </div>
+</div>
+    {% block section %}
+        <a href="{% url 'homeEmploye' %}" class="rounded-md text-sm font-semibold leading-6 text-gray-900 hover:bg-red-200 py-2 px-4">
+            Annuler
+        </a>
+    {% endblock section %}
+{% endblock content %}
