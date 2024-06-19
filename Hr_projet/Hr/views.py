@@ -33,36 +33,7 @@ def about(request):
 
 #Fonction pour retourner la vue vers la page de l'administrateur
 def adminPage(request):
-    # Récupérer tous les utilisateurs
-    users = Utilisateurs.objects.all()
-
-    # Statistiques
-    total_users = users.count()
-    total_employees = users.filter(role="EM").count()
-    total_partners = users.filter(role="EN").count()
-
-    # Recherche
-    query = request.GET.get('q')
-    if query:
-        users = users.filter(
-            Q(nom__icontains=query)|
-            Q(prenom__icontains=query)|
-            Q(email__icontains=query)|
-            Q(contact__icontains=query)|
-            Q(adresse__icontains=query)|
-            Q(ville__icontains=query) |
-            Q(pays__icontains=query) |
-            Q(role__icontains=query)
-           )
-
-    context = {
-        'users': users,
-        'total_users': total_users,
-        'total_employees': total_employees,
-        'total_partners': total_partners
-    }
-    print(context)
-    return render(request,'admin/admin.html', context)
+    return render(request,'admin/admin.html')
 
 #Fonction pour activé ou désactivé un utilisateur
 def status(request, user_id):
@@ -188,6 +159,38 @@ def createCompte(request):
             
         return redirect('createCompte')  # Redirige vers la page d'inscription ou une autre page de votre choix
     return render(request, "admin/comptes/create.html")
+
+#Fonction pour retourner la vue vers la page de la liste comptes
+def listeCompte(request):
+    # Récupérer tous les utilisateurs
+    users = Utilisateurs.objects.all()
+
+    # Statistiques
+    total_users = users.count()
+    total_employees = users.filter(role="EM").count()
+    total_partners = users.filter(role="EN").count()
+
+    # Recherche
+    query = request.GET.get('q')
+    if query:
+        users = users.filter(
+            Q(nom__icontains=query)|
+            Q(prenom__icontains=query)|
+            Q(email__icontains=query)|
+            Q(contact__icontains=query)|
+            Q(adresse__icontains=query)|
+            Q(ville__icontains=query) |
+            Q(pays__icontains=query) |
+            Q(role__icontains=query)
+           )
+
+    context = {
+        'users': users,
+        'total_users': total_users,
+        'total_employees': total_employees,
+        'total_partners': total_partners
+    }
+    return render(request,"admin/comptes/liste.html", context )
 
 #Fonction pour retourner la vue vers la page d'accueil
 def homeEmploye(request):

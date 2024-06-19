@@ -14,6 +14,7 @@ urlpatterns = [
     path('profile_admin', profile_admin, name="profile_admin"),
     path('status/<int:user_id>/', status, name='status'),
     path('createCompte', createCompte, name="createCompte"),
+    path('listeCompte', listeCompte, name="listeCompte"),
     path('homeEmploye', homeEmploye, name="homeEmploye"),
     path('profile_employe', profile_employe, name="profile_employe"),
     path('listeEmploye', listeEmploye, name="listeEmploye"),
