@@ -1,0 +1,72 @@
+{% extends 'admin/baseAdmin.html' %}
+{% block content %}
+    <!-- Cards -->
+    {% if messages %}
+        <div class="mb-4">
+            {% for message in messages %}
+                <div class="bg-gradient-to-r text-black text-center px-4 py-2 rounded shadow-md">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+        <!-- Barre de recherche -->
+        <div class="flex justify-between items-center mb-4">
+            <form method="GET" action="{% url 'listeEmploye' %}" class="flex items-center">
+                <div class="relative w-full">
+                    <input type="text" name="q" placeholder="Recherche..." class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline pl-10">
+                    <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                        <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35M9 3a7 7 0 100 14 7 7 0 000-14z"></path>
+                        </svg>
+                    </div>
+                </div>
+                <button type="submit" class="ml-4 bg-blue-400 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Rechercher</button>
+            </form>
+        </div>
+
+        <!-- Tableau des utilisateurs -->
+        <div class="bg-white shadow-md rounded-lg p-1">
+            <table>
+                <thead>
+                    <tr>
+                        <th class="py-2 px-4 border-b border-gray-200">Nom</th>
+                        <th class="py-2 px-4 border-b border-gray-200">Prénom</th>
+                        <th class="py-2 px-4 border-b border-gray-200">Email</th>
+                        <th class="py-2 px-4 border-b border-gray-200">Contact</th>
+                        <th class="py-2 px-4 border-b border-gray-200">Adresse</th>
+                        <th class="py-2 px-4 border-b border-gray-200">Domaine</th>
+                        <th class="py-2 px-4 border-b border-gray-200">Compétences</th>
+                        <th class="py-2 px-4 border-b border-gray-200"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for employe in employes %}
+                    <tr>
+                        <td class="py-2 px-4 border-b border-gray-200">{{ employe.utilisateur.nom }}</td>
+                        <td class="py-2 px-4 border-b border-gray-200">{{ employe.utilisateur.prenom }}</td>
+                        <td class="py-2 px-4 border-b border-gray-200">{{ employe.utilisateur.email }}</td>
+                        <td class="py-2 px-4 border-b border-gray-200">{{ employe.utilisateur.contact }}</td>
+                        <td class="py-2 px-4 border-b border-gray-200">{{ employe.utilisateur.adresse }}</td>
+                        <td class="py-2 px-4 border-b border-gray-200">{{ employe.domaine }}</td>
+                        <td class="py-2 px-4 border-b border-gray-200">
+                            {% for competence in employe.competence_set.all %}
+                                {{ competence.competence }}{% if not forloop.last %}, {% endif %}
+                            {% endfor %}
+                        </td>
+                        <td class="py-2 px-4 border-b border-gray-200">
+                            <a href="#" class="bg-green-300 rounded-md text-sm font-bold leading-6 text-gray-700 hover:bg-green-200 py-2 px-2">Assigner</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <div class="flex justify-center items-center mt-4">
+                <button class="scroll-button ml-4 bg-blue-400 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" onclick="scrollTable(-1)"><</button>
+                <button class=" scroll-button ml-4 bg-blue-400 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" onclick="scrollTable(1)">></button>
+            </div>
+        </div>
+   
+{% endblock content %}
+

@@ -3,7 +3,7 @@ from Hr_projet.settings import EMAIL_HOST_USER
 from django.shortcuts import render, redirect
 from django.contrib.auth.hashers import make_password
 from django.contrib import messages
-from .models import Utilisateurs, Employe, Entreprise, Administrateur
+from .models import Competence, Utilisateurs, Employe, Entreprise, Administrateur
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.hashers import check_password
@@ -131,6 +131,7 @@ def createCompte(request):
             contact=contact,
             ville=ville,
             pays=pays,
+            role=role,
             password=make_password(password)
         )
         user.save()
@@ -151,15 +152,19 @@ def createCompte(request):
         if role == "EM":
             domaine = request.POST.get('domaine')
             departement = request.POST.get('departement')
-            competence = request.POST.get('competence')
             annee_exp = request.POST.get('annee_exp')
-            Employe.objects.create(
+            employe = Employe.objects.create(
                 utilisateur=user,
                 departement=departement,
                 domaine=domaine,
-                competence=competence,
                 annee_exp=annee_exp
             )
+            # Récupérer les compétences du formulaire
+            competences = request.POST.getlist('competences')
+            # Parcourir chaque compétence et la sauvegarder dans la base de données
+            for competence in competences:
+                Competence.objects.create(employe=employe, competence=competence)
+                    
         elif role == "EN":
             nom_entreprise = request.POST.get('nom_entreprise')
             description = request.POST.get('description')
@@ -184,17 +189,28 @@ def createCompte(request):
         return redirect('createCompte')  # Redirige vers la page d'inscription ou une autre page de votre choix
     return render(request, "admin/comptes/create.html")
 
-#Fonction pour afficher la liste des comptes
-def listeCompte(request):
-    return render(request,'admin/comptes/liste.html')
-
 #Fonction pour retourner la vue vers la page d'accueil
 def homeEmploye(request):
     return render(request,'home/employes/home.html',{'active_page': 'homeEmploye'} )
 
 #Fonction pour retourner la vue vers la page de la liste des employes
 def listeEmploye(request):
-    return render(request,'admin/employes/liste.html')
+    employes = Employe.objects.select_related('utilisateur').prefetch_related('competence_set').all()
+      
+    # Recherche
+    query = request.GET.get('q')
+    if query:
+        employes = employes.filter(
+            Q(utilisateur__nom__icontains=query)|
+            Q(utilisateur__prenom__icontains=query)|
+            Q(domaine__icontains=query)|
+            Q(competence_set__competence__icontains=query)
+           )
+
+    context = {
+        'employes': employes,
+    }
+    return render(request,'admin/comptes/listeEmploye.html', context)
 
 #Fonction pour retourner la vue vers la page d'accueil
 def homeEntreprise(request):
@@ -202,14 +218,27 @@ def homeEntreprise(request):
 
 #Fonction pour retourner la vue vers la page de la liste des entreprises
 def listeEntreprise(request):
-    return render(request,'admin/entreprises/liste.html')
+    entreprises = Entreprise.objects.select_related('utilisateur').all()
+      
+    # Recherche
+    query = request.GET.get('q')
+    if query:
+        entreprises = entreprises.filter(
+            Q(utilisateur__nom_entreprise__icontains=query)|
+            Q(utilisateur__nom__icontains=query)|
+            Q(utilisateur__prenom__icontains=query)
+           )
+
+    context = {
+        'entreprises': entreprises,
+    }
+    return render(request,'admin/comptes/listeEntreprise.html',context)
 
 #Fonction pour retourner la vue vers la page de login
 def login(request):
     if request.method == "POST":
         email = request.POST.get('email')
         password = request.POST.get('password')
-
         # Récupérer l'utilisateur avec l'email donné
         try:
             user = Utilisateurs.objects.get(email=email)
@@ -354,7 +383,6 @@ def profile_employe(request):
 
             messages.success(request, "Profil employé mis à jour avec succès.")
             return redirect('profile_employe')
-
     return render(request, 'home/employes/profile.html', {'user': user, 'employe_info': employe_info})
 
 #Fonction pour accéder au profile utilisateur d'une entreprise
@@ -411,7 +439,6 @@ def profile_entreprise(request):
 
             messages.success(request, "Profil mis à jour avec succès.")
             return redirect('homeEntreprise')
-
     return render(request, 'home/entreprises/profile.html', {'user': user, 'entreprise_info': entreprise_info})
 
 #Fonction pour retourner le profile administrateur
@@ -472,3 +499,7 @@ def profile_admin(request):
 
     return render(request, 'admin/profile.html', {'user': user, 'admin_info': admin_info})
 
+
+
+def dash(request):
+    return render(request,'dash.html')

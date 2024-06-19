@@ -80,13 +80,12 @@ WSGI_APPLICATION = 'Hr_projet.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'hr_bd',
-        'USER':'root',
-        'PASSWORD':'',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'hrdb',
+        'USER':'postgres',
+        'PASSWORD':'xuner2004',
         'HOST': '127.0.0.1',
-        'PORT':'3306'
-        
+        'PORT':'5432'
     }
 }
 
