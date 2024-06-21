@@ -57,27 +57,28 @@ class Entreprise(models.Model):
     description = models.TextField(blank=True)
     
 class Contrat(models.Model):
-    #Définition des différents types de contrat
-    CONTRAT_CHOICES = (
-        ('CA', ('Contrat Embauche')),
-        ('CT', ('Contrat Travail'))
-    )
+    #Définition des différents types de rémunération
     REMUNERATION_CHOICES = (
-        ('M', ('Par mois')),
-        ('J', ('Par jour')),
-        ('H', ('Par heure')),
+        ('MO', ('Par mois')),
+        ('JO', ('Par jour')),
+        ('HE', ('Par heure')),
     )
     date_debut = models.DateField()
     date_fin = models.DateField()
-    type_contrat=models.CharField(max_length=2, choices=CONTRAT_CHOICES)
-    entreprise = models.ForeignKey(Entreprise, on_delete=models.CASCADE)
-    employe = models.ForeignKey(Employe, on_delete=models.CASCADE)
+    type_contrat=models.CharField(max_length=200)
+    nom_entreprise_employeur=models.CharField(max_length=20)
+    contact_entreprise=PhoneNumberField()
+    email_entreprise=models.EmailField(max_length=200)
+    adresse_entreprise=models.CharField(max_length=50)
+    nom_employe=models.CharField(max_length=20)
+    prenom_employe=models.CharField(max_length=150)
+    contact_employe=PhoneNumberField()
+    email_employe=models.EmailField(max_length=200)
+    adresse_employe=models.CharField(max_length=50)
     type_remuneration=models.CharField(max_length=2, choices=REMUNERATION_CHOICES)
-    montant = models.DecimalField(max_digits=10, decimal_places=2)
-    clause = models.TextField(null=True, blank=True)
+    montant = models.DecimalField(max_digits=10, decimal_places=2)  
     status = models.BooleanField(default=True)
     
-class ContratTravail(models.Model):
-    #Définition des différents types de rémunération
-    entreprise = models.ForeignKey(Entreprise, on_delete=models.CASCADE)
-    employe = models.ForeignKey(Employe, on_delete=models.CASCADE)
+class Clause(models.Model):
+    contrat = models.ForeignKey(Contrat, on_delete=models.CASCADE)
+    clause = models.TextField(null=True, blank=True)

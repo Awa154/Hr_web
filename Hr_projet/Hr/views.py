@@ -504,5 +504,10 @@ def profile_admin(request):
 
 
 
-def dash(request):
-    return render(request,'dash.html')
+def createContrat(request):
+    
+    return render(request,'admin/contrats/create.html')
+
+def listeContrat(request):
+    
+    return render(request,'admin/contrats/liste.html')

@@ -15,11 +15,12 @@ urlpatterns = [
     path('status/<int:user_id>/', status, name='status'),
     path('createCompte', createCompte, name="createCompte"),
     path('listeCompte', listeCompte, name="listeCompte"),
+    path('createContrat', createContrat, name="createContrat"),
+    path('listeContrat', listeContrat, name="listeContrat"),
     path('homeEmploye', homeEmploye, name="homeEmploye"),
     path('profile_employe', profile_employe, name="profile_employe"),
     path('listeEmploye', listeEmploye, name="listeEmploye"),
     path('homeEntreprise',homeEntreprise, name="homeEntreprise"),
     path('profile_entreprise', profile_entreprise, name="profile_entreprise"),
-    path('listeEntreprise', listeEntreprise, name="listeEntreprise"),
-    path('dash', dash, name="dash"),
+    path('listeEntreprise', listeEntreprise, name="listeEntreprise")
 ]

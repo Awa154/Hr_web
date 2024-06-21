@@ -11,13 +11,10 @@
             border-bottom: 2px solid #0f0c29; /* Couleur bleue pour la barre active */
             color: #0f0c29; /* Texte noir */
         }
-        .bg-gradient-nav {
-            background: linear-gradient(to right,#6190E8, #A7BFE8);
-        }
     </style>
 </head>
 <body class="bg-white">
-    <nav class="bg-gradient-nav text-white shadow-sm">
+    <nav class="bg-yellow-900 text-white shadow-sm">
         <div class="container mx-auto px-4">
             <div class="flex items-center justify-between h-16">
                 <div class="flex items-center">
@@ -37,7 +34,7 @@
                 <div class="flex items-center">
                     <!-- Afficher le nom de l'utilisateur connecté -->
                     <span class="text-gray-700 mr-2">{{ request.user.nom }} {{ request.user.prenom }}</span>
-                    <a href="{% url 'profile_employe' %}" class="text-gray-500 hover:text-gray-700">
+                    <a href="{% url 'profile_entreprise' %}" class="text-gray-500 hover:text-gray-700">
                         <!-- Afficher la photo de profil de l'utilisateur, ou une image par défaut si non disponible -->
                         {% if request.user.photo_profile %}
                             <img class="h-8 w-8 rounded-full ml-4" src="{{ request.user.photo_profile.url }}" alt="Profil">

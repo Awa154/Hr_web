@@ -1,0 +1,136 @@
+{% extends 'layouts/baseAdmin.html' %}
+{% block content %}
+<div class="bg-white shadow-md rounded-lg p-8 mx-auto max-w-screen-md">
+    {% if messages %}
+        <div class="mb-4">
+            {% for message in messages %}
+                <div class="bg-yellow-900 text-black text-center px-4 py-2 rounded shadow-md">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <h2 class="text-2xl font-bold mb-6 text-center">Créer un contrat</h2>
+        <p class="mt-1 text-sm leading-6 text-gray-600">Veuillez remplir les informations suivantes pour créer le contrat.</p>
+        <div class="mb-4 flex space-x-4">
+            <div class="w-1/2">
+                <label for="date_debut" class="block text-gray-700 font-bold">Date de début du contrat:</label>
+                <input type="Date" name="date_debut" id="date_debut" class="w-full p-2 border border-gray-300 rounded mt-1" required>
+            </div>
+            <div class="w-1/2">
+                <label for="date_fin" class="block text-gray-700 font-bold">Date de fin ébut du contrat:</label>
+                <input type="Date" name="date_fin" id="date_fin" class="w-full p-2 border border-gray-300 rounded mt-1" required>
+            </div>
+        </div>
+        <div class="mb-4 flex space-x-4">
+            <div class="w-1/2">
+                <label for="nom_entreprise_employeur" class="block text-gray-700 font-bold">Nom de l'entreprise employeur:</label>
+                <input type="text" name="nom_entreprise_employeur" id="nom_entreprise_employeur" class="w-full p-2 border border-gray-300 rounded mt-1" required>
+            </div>
+            <div class="w-1/2">
+                <label for="adresse_entreprise" class="block text-gray-700 font-bold">Adresse de l'entreprise:</label>
+                <input type="text" name="adresse_entreprise" id="adresse_entreprise" class="w-full p-2 border border-gray-300 rounded mt-1" required>
+            </div>
+        </div>
+        <div class="mb-4 flex space-x-4">
+            <div class="w-1/2">
+                <label for="contact_entreprise" class="block text-gray-700 font-bold">Contact de l'entreprise:</label>
+                <input type="tel" name="contact_entreprise" id="contact_entreprise" class="w-full p-2 border border-gray-300 rounded mt-1">
+            </div>
+            <div class="w-1/2">
+                <label for="email_entreprise" class="block text-gray-700 font-bold">Email de l'entreprise:</label>
+                <input type="email_entreprise" name="email_entreprise" id="email_entreprise" class="w-full p-2 border border-gray-300 rounded mt-1" required>
+            </div>
+        </div>
+        <div class="mb-4 flex space-x-4">
+            <div class="w-1/2">
+                <label for="nom_employe" class="block text-gray-700 font-bold">Nom de l'employé:</label>
+                <input type="text" name="nom_employe" id="nom_employe" class="w-full p-2 border border-gray-300 rounded mt-1" required>
+            </div>
+            <div class="w-1/2">
+                <label for="prenom_employe" class="block text-gray-700 font-bold">Prénom de l'employé:</label>
+                <input type="text" name="prenom_employe" id="prenom_employe" class="w-full p-2 border border-gray-300 rounded mt-1" required>
+            </div>
+        </div>
+        <div class="mb-4 flex space-x-4">
+            <div class="w-2/4">
+                <label for="email_employe" class="block text-gray-700 font-bold">Email de l'employé:</label>
+                <input type="text" name="email_employe" id="email_employe" class="w-full p-2 border border-gray-300 rounded mt-1" required>
+            </div>
+            <div class="w-1/4">
+                <label for="contact_employe" class="block text-gray-700 font-bold">Contact de l'employé:</label>
+                <input type="tel" name="contact_employe" id="contact_employe" class="w-full p-2 border border-gray-300 rounded mt-1">
+            </div>
+            <div class="w-1/4">
+                <label for="adresse_employe" class="block text-gray-700 font-bold">Adresse de l'employé:</label>
+                <input type="text" name="adresse_employe" id="adresse_employe" class="w-full p-2 border border-gray-300 rounded mt-1" required>
+            </div>
+        </div>
+        <div class="mb-4 flex items-center">
+            <div class="w-3/4">
+                <label for="type_remuneration" class="block text-gray-700 font-bold mr-2">Type de rémunération:</label>
+                <div class="flex space-x-4">
+                    <div class="flex items-center">
+                        <input type="radio" name="type_remuneration" value=MO class="mr-1">
+                        <label class="block text-gray-600 text-sm font-bold mr-2">Par mois</label>
+                    </div>
+                    <div class="flex items-center">
+                        <input type="radio" name="type_remuneration" value=JO class="mr-1">
+                        <label class="block text-gray-600 text-sm font-bold mr-2">Par jour</label>
+                    </div>
+                    <div class="flex items-center">
+                        <input type="radio" name="type_remuneration" value=HE class="mr-1">
+                        <label class="block text-gray-600 text-sm font-bold mr-2">Par heure</label>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-6 flex items-center justify-end gap-x-2 w-1/4">
+                <label for="montant" class="block text-gray-700 font-bold">Montant:</label>
+                <input type="number" name="montant" id="montant" class="w-full p-2 border border-gray-300 rounded mt-1" required>
+            </div>
+        </div>
+        <div class="mb-4 flex space-x-4">
+            <div class="w-3/4">
+                <div id="clauses-container">
+                    <div class="mb-4 flex items-center">
+                        <label for="clauses" class="block text-gray-700 font-bold">Clauses:</label>
+                <button type="button" id="add-clause" class="text-green-500 ml-2"><i class="fas fa-plus-circle"></i></button>
+                    </div>
+                    <input type="text" name="clause" id="clause" class="w-full p-2 border border-gray-300 rounded mt-1" required>
+                </div>
+            </div>
+        </div>
+        <div class="mt-6 flex items-center justify-end gap-x-6">
+            <a href="{% url 'listeContrat' %}" class="rounded-md text-sm font-semibold leading-6 text-gray-900 hover:bg-gray-400 py-2 px-4">
+                Annuler
+            </a>
+            <button type="submit" class="rounded-md bg-yellow-900 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-sky-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Enregistrer</button>
+        </div>
+    </form>
+</div>
+<script>
+// Gestion des champs de compétence
+     document.addEventListener('DOMContentLoaded', function() {
+        const addclauseButton = document.getElementById('add-clause');
+        const clausesContainer = document.getElementById('clauses-container');
+    
+        if (addclauseButton && clausesContainer) {
+            addclauseButton.addEventListener('click', function() {
+                const newclauseField = document.createElement('div');
+                newclauseField.className = 'mb-4 flex items-center';
+                newclauseField.innerHTML = `
+                    <input type="text" name="clause" id="clause" class="w-full p-2 border border-gray-300 rounded mt-1" required>
+                    <button type="button" class="ml-2 text-red-500 remove-clause"><i class="fas fa-minus-circle"></i></button>
+                `;
+                clausesContainer.appendChild(newclauseField);
+    
+                newclauseField.querySelector('.remove-clause').addEventListener('click', function() {
+                    newclauseField.remove();
+                });
+            });
+        }
+    });
+</script>
+{% endblock content %}
