@@ -1,6 +1,6 @@
 import re
 from Hr_projet.settings import EMAIL_HOST_USER
-from django.shortcuts import get_object_or_404, render, redirect
+from django.shortcuts import render, redirect
 from django.contrib.auth.hashers import make_password
 from django.contrib import messages
 from .models import Competence, Utilisateurs, Employe, Entreprise, Administrateur
@@ -512,36 +512,3 @@ def listeContrat(request):
     
     return render(request,'admin/contrats/liste.html')
 
-def select_employe(request):
-    employes = Employe.objects.all()
-    return render(request, 'select_employe.html', {'employes': employes})
-
-def select_entreprise(request, employe_id):
-    employe = get_object_or_404(Employe, id=employe_id)
-    entreprises = Entreprise.objects.all()
-    return render(request, 'select_entreprise.html', {'employe': employe, 'entreprises': entreprises})
-
-def create_contrat(request, employe_id, entreprise_id):
-    employe = get_object_or_404(Employe, id=employe_id)
-    entreprise = get_object_or_404(Entreprise, id=entreprise_id)
-    if request.method == 'POST':
-        form = ContratForm(request.POST)
-        if form.is_valid():
-            contrat = form.save(commit=False)
-            contrat.nom_employe = employe.utilisateur.nom
-            contrat.prenom_employe = employe.utilisateur.prenom
-            contrat.contact_employe = employe.utilisateur.contact
-            contrat.email_employe = employe.utilisateur.email
-            contrat.adresse_employe = employe.utilisateur.adresse
-            contrat.nom_entreprise_employeur = entreprise.utilisateur.nom
-            contrat.contact_entreprise = entreprise.utilisateur.contact
-            contrat.email_entreprise = entreprise.utilisateur.email
-            contrat.adresse_entreprise = entreprise.utilisateur.adresse
-            contrat.save()
-            return redirect('success_page')
-    else:
-        form = ContratForm()
-    return render(request, 'create_contrat.html', {'form': form, 'employe': employe, 'entreprise': entreprise})
-
-def success_page(request):
-    return render(request, 'success_page.html')

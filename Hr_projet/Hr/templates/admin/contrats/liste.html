@@ -12,7 +12,7 @@
     {% endif %}
         <!-- Statistiques -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-            <div class="bg-yellow-800 p-4 rounded-lg shadow-md relative">
+            <div class="bg-gray-700 p-4 rounded-lg shadow-md relative">
                 <div class="flex items-center justify-between mb-2">
                     <h3 class="text-xl text-white font-bold text-left">Contrats total</h3>
                     <svg class="h-12 w-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -25,17 +25,17 @@
             </div>
             <div class="bg-white p-4 rounded-lg shadow-md relative">
                 <div class="flex items-center justify-between mb-2">
-                    <h3 class="text-xl text-yellow-900 font-bold text-left">Contrats en cours</h3>
-                    <svg class="h-12 w-12 text-yellow-900" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <h3 class="text-xl text-gray-700 font-bold text-left">Contrats en cours</h3>
+                    <svg class="h-12 w-12 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 20H7a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v7m-4 4h5l-1.5-1.5M19 16l-4 4-1.5-1.5M9 14H7v2h2v-2zM11 12H7v2h4v-2zM13 10H7v2h6v-2zM15 8H7v2h8V8z" />
                     </svg>
                       
                 </div>
                 <div class="flex justify-end mb-2">
-                    <h4 class="text-xl text-yellow-900 font-bold text-left">#</h4>
+                    <h4 class="text-xl text-gray-700 font-bold text-left">#</h4>
                 </div>
             </div>
-            <div class="bg-yellow-900 p-4 rounded-lg shadow-md relative">
+            <div class="bg-gray-700 p-4 rounded-lg shadow-md relative">
                 <div class="flex items-center justify-between mb-2">
                     <h3 class="text-xl text-white font-bold text-left">Contrats terminer</h3>
                     <svg class="h-12 w-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -58,9 +58,9 @@
                         </svg>
                     </div>
                 </div>
-                <button type="submit" class="ml-4 bg-yellow-900 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Rechercher</button>
+                <button type="submit" class="ml-4 bg-gray-700 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Rechercher</button>
             </form>
-            <a href="{% url 'createContrat' %}" class="bg-yellow-900 rounded-md text-sm font-bold leading-6 text-white hover:bg-gray-500 py-2 px-4">Créer un contrat</a>
+            <a href="{% url 'createContrat' %}" class="bg-gray-700 rounded-md text-sm font-bold leading-6 text-white hover:bg-gray-500 py-2 px-4">Créer un contrat</a>
         </div>
 
         <!-- Tableau des utilisateurs -->
@@ -69,8 +69,8 @@
  
             </table>
             <div class="flex justify-center items-center mt-4">
-                <button class="scroll-button ml-4 bg-yellow-900 hover:bg-gray-200 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" onclick="scrollTable(-1)"><</button>
-                <button class=" scroll-button ml-4 bg-yellow-900 hover:bg-gray-200 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" onclick="scrollTable(1)">></button>
+                <button class="scroll-button ml-4 bg-gray-700 hover:bg-gray-200 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" onclick="scrollTable(-1)"><</button>
+                <button class=" scroll-button ml-4 bg-gray-700 hover:bg-gray-200 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" onclick="scrollTable(1)">></button>
             </div>
         </div>
    

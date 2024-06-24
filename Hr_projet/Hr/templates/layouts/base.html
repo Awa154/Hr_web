@@ -4,8 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <style>
         .nav-item.active {
             border-bottom: 2px solid #0f0c29; /* Couleur bleue pour la barre active */
@@ -14,31 +16,39 @@
     </style>
 </head>
 <body class="bg-white">
-    <nav class="bg-yellow-900 text-white shadow-sm">
-        <div class="container mx-auto px-4">
-            <div class="flex items-center justify-between h-16">
-                <div class="flex items-center">
-                    <svg class="h-8 w-8 text-white" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd" d="M10 1C5.027 1 1 5.027 1 10s4.027 9 9 9 9-4.027 9-9-4.027-9-9-9zM8.293 13.293a1 1 0 011.414 0L10 13.586l.293-.293a1 1 0 111.414 1.414l-2 2a1 1 0 01-1.414 0l-2-2a1 1 0 111.414-1.414zM10 11.586l.293-.293a1 1 0 011.414 1.414L10 14.414l-1.707-1.707a1 1 0 011.414-1.414L10 11.586z" clip-rule="evenodd" />
-                    </svg>
-                    <div class="ml-4">
-                        <a href="#" class="text-white font-bold text-lg">HrBridge</a>
-                    </div>
-                    <div class="ml-10 flex items-baseline space-x-4">
-                        <a href="{% url 'home' %}" class="m text-white hover:text-gray-300 {% if active_page == 'home' %}active{% endif %}">Accueil</a>
-                        <a href="{% url 'services' %}" class="nav-item text-white hover:text-gray-300 {% if active_page == 'services' %}active{% endif %}">Services</a>
-                        <a href="{% url 'annonces' %}" class="nav-item text-white hover:text-gray-300 {% if active_page == 'annonces' %}active{% endif %}">Annonces</a>
-                        <a href="{% url 'about' %}" class="nav-item text-white hover:text-gray-300 {% if active_page == 'about' %}active{% endif %}">A propos</a>
-                    </div>
-                </div>
-                <div class="hidden md:flex items-center space-x-4">
-                    <a href="#" class="font-semibold text-white hover:text-gray-300 focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Contactez-nous</a>
-                    <a href="{% url 'login' %}" class="font-semibold text-white hover:text-gray-300 focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Log in</a>
-                </div>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark shadow-sm">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                HrBridge
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item {% if active_page == 'home' %}active{% endif %}">
+                        <a class="nav-link" href="{% url 'home' %}">Accueil</a>
+                    </li>
+                    <li class="nav-item {% if active_page == 'services' %}active{% endif %}">
+                        <a class="nav-link" href="{% url 'services' %}">Services</a>
+                    </li>
+                    <li class="nav-item {% if active_page == 'annonces' %}active{% endif %}">
+                        <a class="nav-link" href="{% url 'annonces' %}">Annonces</a>
+                    </li>
+                    <li class="nav-item {% if active_page == 'about' %}active{% endif %}">
+                        <a class="nav-link" href="{% url 'about' %}">A propos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link font-semibold" href="#">Contactez-nous</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn btn-light text-dark font-weight-bold py-2 px-4" href="{% url 'login' %}">Se connecter</a>
+                    </li>
+                </ul>
             </div>
         </div>
     </nav>
-    <div class="container mx-auto px-4 py-6">
+    <div class="container py-6">
         <!-- Content goes here -->
         {% block content %}
     

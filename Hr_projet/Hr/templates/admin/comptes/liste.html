@@ -12,7 +12,7 @@
     {% endif %}
         <!-- Statistiques -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-            <div class="bg-yellow-800 p-4 rounded-lg shadow-md relative">
+            <div class="bg-gray-700 p-4 rounded-lg shadow-md relative">
                 <div class="flex items-center justify-between mb-2">
                     <h3 class="text-xl text-white font-bold text-left">Comptes</h3>
                     <svg class="h-12 w-12 text-white" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
@@ -25,8 +25,8 @@
             </div>
             <div class="bg-white p-4 rounded-lg shadow-md relative">
                 <div class="flex items-center justify-between mb-2">
-                    <h3 class="text-xl text-yellow-900 font-bold text-left">Employés</h3>
-                    <svg class="h-12 w-12 text-yellow-900" viewBox="0 0 64 64" fill="currentColor" aria-hidden="true">
+                    <h3 class="text-xl text-bg-gray-700 font-bold text-left">Employés</h3>
+                    <svg class="h-12 w-12 text-bg-gray-700" viewBox="0 0 64 64" fill="currentColor" aria-hidden="true">
                         <circle cx="32" cy="32" r="30" stroke="currentColor" stroke-width="2" fill="none"/>
                         <g fill="currentColor">
                           <path d="M32 34c-5 0-9 4-9 9h18c0-5-4-9-9-9z"/>
@@ -40,10 +40,10 @@
                       
                 </div>
                 <div class="flex justify-end mb-2">
-                    <h4 class="text-xl text-yellow-900 font-bold text-left">{{ total_employees }}</h4>
+                    <h4 class="text-xl text-bg-gray-700 font-bold text-left">{{ total_employees }}</h4>
                 </div>
             </div>
-            <div class="bg-yellow-900 p-4 rounded-lg shadow-md relative">
+            <div class="bg-gray-700 p-4 rounded-lg shadow-md relative">
                 <div class="flex items-center justify-between mb-2">
                     <h3 class="text-xl text-white font-bold text-left">Entreprises Partenaires</h3>
                     <svg class="h-12 w-12 text-white" viewBox="0 0 64 64" fill="currentColor" aria-hidden="true">
@@ -73,9 +73,9 @@
                         </svg>
                     </div>
                 </div>
-                <button type="submit" class="ml-4 bg-yellow-900 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Rechercher</button>
+                <button type="submit" class="ml-4 bg-gray-700 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Rechercher</button>
             </form>
-            <a href="{% url 'createCompte' %}" class="bg-yellow-900 rounded-md text-sm font-bold leading-6 text-white hover:bg-gray-500 py-2 px-4">Créer Compte</a>
+            <a href="{% url 'createCompte' %}" class="bg-gray-700 rounded-md text-sm font-bold leading-6 text-white hover:bg-gray-500 py-2 px-4">Créer Compte</a>
         </div>
 
         <!-- Tableau des utilisateurs -->
@@ -102,7 +102,7 @@
                             <td class="py-2 px-4 border-b border-gray-200">{{ user.get_role_display }}</td>
                             <td class="py-2 px-4 border-b border-gray-200">{{ user.adresse }}</td>
                             <td class="py-2 px-4 border-b border-gray-200">
-                                <a href="{% url 'status' user.id %}" class="text-yellow-900 hover:text-blue-700">
+                                <a href="{% url 'status' user.id %}" class="text-bg-gray-700 hover:text-blue-700">
                                     {% if user.is_active %}
                                         <i class="fas fa-toggle-on"></i>
                                     {% else %}
@@ -115,8 +115,8 @@
                 </tbody>
             </table>
             <div class="flex justify-center items-center mt-4">
-                <button class="scroll-button ml-4 bg-yellow-900 hover:bg-gray-200 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" onclick="scrollTable(-1)"><</button>
-                <button class=" scroll-button ml-4 bg-yellow-900 hover:bg-gray-200 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" onclick="scrollTable(1)">></button>
+                <button class="scroll-button ml-4 bg-gray-700 hover:bg-gray-200 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" onclick="scrollTable(-1)"><</button>
+                <button class=" scroll-button ml-4 bg-gray-700 hover:bg-gray-200 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" onclick="scrollTable(1)">></button>
             </div>
         </div>
    

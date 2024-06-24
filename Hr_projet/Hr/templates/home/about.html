@@ -2,3 +2,136 @@
 {% block content %}
     
 {% endblock content %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Tableau de Bord Admin{% endblock %}</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <style>
+        .sidebar {
+            background: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 0.5rem;
+            margin-left: 1rem;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+            padding: 2rem;
+        }
+        .content-box {
+            background: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 0.5rem;
+            margin-top: 2rem;
+            padding: 2rem;
+        }
+    </style>
+    <script>
+        // Fonction pour gérer le menu déroulant de notification
+        document.addEventListener('DOMContentLoaded', function () {
+            document.querySelectorAll('.sidebar-dropdown-toggle').forEach(toggle => {
+                toggle.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    let parent = toggle.parentElement;
+                    parent.classList.toggle('selected');
+                    let dropdownMenu = parent.querySelector('ul');
+                    let arrowIcon = toggle.querySelector('i.ri-arrow-right-s-line');
+                    if (parent.classList.contains('selected')) {
+                        dropdownMenu.classList.remove('hidden');
+                        arrowIcon.classList.add('rotate-90');
+                    } else {
+                        dropdownMenu.classList.add('hidden');
+                        arrowIcon.classList.remove('rotate-90');
+                    }
+                });
+            });
+        });
+
+        // Fonction pour gérer la navigation du tableau d'affichage de la liste des comptes
+        function scrollTable(direction) {
+            const tableContainer = document.querySelector('.overflow-x-auto');
+            const scrollAmount = tableContainer.offsetWidth;
+            tableContainer.scrollLeft += direction * scrollAmount;
+        }
+    </script>
+</head>
+<body class="bg-light">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <a class="navbar-brand" href="#">Admin Dashboard</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Profil</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Déconnexion</a>
+                </li>
+                <li class="nav-item">
+                    <span class="navbar-text">
+                        {{ request.user.nom }} {{ request.user.prenom }}
+                    </span>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Sidebar -->
+    <div class="d-flex">
+        <div class="sidebar bg-white">
+            <nav class="nav flex-column">
+                <a class="nav-link active" href="{% url 'adminPage' %}"><i class="ri-home-2-line mr-2"></i> Tableau de Bord</a>
+                <a class="nav-link" href="{% url 'listeCompte' %}"><i class="fas fa-circle-user mr-2"></i> Comptes</a>
+                <a class="nav-link" href="{% url 'listeEmploye' %}"><i class="fas fa-users mr-2"></i> Employés</a>
+                <a class="nav-link" href="{% url 'listeEntreprise' %}"><i class="fas fa-handshake mr-2"></i> Entreprises Partenaires</a>
+                <a class="nav-link" href="{% url 'listeContrat' %}"><i class="fas fa-file-signature mr-2"></i> Contrats</a>
+                <a class="nav-link" href="{% url 'listeEntreprise' %}"><i class="fas fa-bullhorn mr-2"></i> Annonces</a>
+                <a class="nav-link sidebar-dropdown-toggle" href="#"><i class="fas fa-bell mr-2"></i> Notifications <i class="ri-arrow-right-s-line ml-auto"></i></a>
+                <ul class="nav flex-column pl-3 mt-2 hidden">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><i class="fas fa-comment-alt mr-2"></i> Feedbacks</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><i class="fas fa-bullhorn mr-2"></i> Annonces</a>
+                    </li>
+                </ul>
+                <a class="nav-link" href="#"><i class="fas fa-cogs mr-2"></i> Paramètres</a>
+                <a class="nav-link" href="{% url 'logout' %}"><i class="fas fa-sign-out-alt mr-2"></i> Déconnexion</a>
+            </nav>
+        </div>
+
+        <!-- Main Content -->
+        <div class="container-fluid mt-5 pt-4">
+            <div class="content-box">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h1 class="h3 mb-0 text-dark">Tableau de Bord</h1>
+                    <div class="d-flex align-items-center">
+                        <span class="text-dark mr-3">{{ request.user.nom }} {{ request.user.prenom }}</span>
+                        <a href="{% url 'profile_admin' %}" class="text-dark">
+                            {% if request.user.photo_profile %}
+                                <img class="rounded-circle ml-3" src="{{ request.user.photo_profile.url }}" alt="Profil" style="width: 40px; height: 40px;">
+                            {% else %}
+                                <svg class="bi bi-person-circle ml-3" width="40" height="40" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M8 8a3 3 0 1 1-6 0 3 3 0 0 1 6 0zM4 1a4 4 0 0 0-4 4v1.11A5.992 5.992 0 0 0 4 11a5.992 5.992 0 0 0 4-1.89V5a4 4 0 0 0-4-4z"/>
+                                    <path fill-rule="evenodd" d="M4 0a4 4 0 0 0-4 4v1.11A5.992 5.992 0 0 0 4 11a5.992 5.992 0 0 0 4-1.89V4a4 4 0 0 0-4-4zm2 6a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm-6 4a6 6 0 1 1 12 0A6 6 0 0 1 0 10z"/>
+                                </svg>
+                            {% endif %}
+                        </a>
+                    </div>
+                </div>
+                {% block content %}
+                {% endblock content %}
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -4,7 +4,7 @@
     {% if messages %}
         <div class="mb-4">
             {% for message in messages %}
-                <div class="bg-yellow-900 text-black text-center px-4 py-2 rounded shadow-md">
+                <div class="bg-gray-700 text-black text-center px-4 py-2 rounded shadow-md">
                     {{ message }}
                 </div>
             {% endfor %}
@@ -22,7 +22,7 @@
                         </svg>
                     </div>
                 </div>
-                <button type="submit" class="ml-4 bg-blue-400 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Rechercher</button>
+                <button type="submit" class="ml-4 bg-gray-500 hover:bg-gray-300 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Rechercher</button>
             </form>
         </div>
 
@@ -56,15 +56,15 @@
                             {% endfor %}
                         </td>
                         <td class="py-2 px-4 border-b border-gray-200">
-                            <a href="#" class="bg-green-300 rounded-md text-sm font-bold leading-6 text-gray-700 hover:bg-green-200 py-2 px-2">Assigner</a>
+                            <a href="#" class="bg-gray-300 rounded-md text-sm font-bold leading-6 text-gray-700 hover:bg-gray-200 py-2 px-2">Assigner</a>
                         </td>
                     </tr>
                     {% endfor %}
                 </tbody>
             </table>
             <div class="flex justify-center items-center mt-4">
-                <button class="scroll-button ml-4 bg-blue-400 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" onclick="scrollTable(-1)"><</button>
-                <button class=" scroll-button ml-4 bg-blue-400 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" onclick="scrollTable(1)">></button>
+                <button class="scroll-button ml-4 bg-gray-400 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" onclick="scrollTable(-1)"><</button>
+                <button class=" scroll-button ml-4 bg-gray-400 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" onclick="scrollTable(1)">></button>
             </div>
         </div>
    

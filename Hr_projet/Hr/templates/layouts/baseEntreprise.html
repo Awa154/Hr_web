@@ -4,8 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <style>
         .nav-item.active {
             border-bottom: 2px solid #0f0c29; /* Couleur bleue pour la barre active */
@@ -14,41 +16,43 @@
     </style>
 </head>
 <body class="bg-white">
-    <nav class="bg-yellow-900 text-white shadow-sm">
-        <div class="container mx-auto px-4">
-            <div class="flex items-center justify-between h-16">
-                <div class="flex items-center">
-                    <svg class="h-8 w-8 text-white" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd" d="M10 1C5.027 1 1 5.027 1 10s4.027 9 9 9 9-4.027 9-9-4.027-9-9-9zM8.293 13.293a1 1 0 011.414 0L10 13.586l.293-.293a1 1 0 111.414 1.414l-2 2a1 1 0 01-1.414 0l-2-2a1 1 0 111.414-1.414zM10 11.586l.293-.293a1 1 0 011.414 1.414L10 14.414l-1.707-1.707a1 1 0 011.414-1.414L10 11.586z" clip-rule="evenodd" />
-                    </svg>
-                    <div class="ml-4">
-                        <a href="#" class="text-white font-bold text-lg">HrBridge</a>
-                    </div>
-                    <div class="ml-10 flex items-baseline space-x-4">
-                        <a href="{% url 'homeEmploye' %}" class="nav-item text-white hover:text-gray-300 {% if active_page == 'homeEmploye' %}active{% endif %}">Accueil</a>
-                        <a href="#" class="nav-item text-white hover:text-gray-300">Contrats</a>
-                        <a href="#" class="nav-item text-white hover:text-gray-300">Paie</a>
-                        <a href="#" class="nav-item text-white hover:text-gray-300">Contactez-nous</a>
-                    </div>
-                </div>
-                <div class="flex items-center">
-                    <!-- Afficher le nom de l'utilisateur connecté -->
-                    <span class="text-gray-700 mr-2">{{ request.user.nom }} {{ request.user.prenom }}</span>
-                    <a href="{% url 'profile_entreprise' %}" class="text-gray-500 hover:text-gray-700">
-                        <!-- Afficher la photo de profil de l'utilisateur, ou une image par défaut si non disponible -->
-                        {% if request.user.photo_profile %}
-                            <img class="h-8 w-8 rounded-full ml-4" src="{{ request.user.photo_profile.url }}" alt="Profil">
-                        {% else %}
-                            <svg class="h-12 w-12 text-gray-300" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                                <path fill-rule="evenodd" d="M18.685 19.097A9.723 9.723 0 0021.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 003.065 7.097A9.716 9.716 0 0012 21.75a9.716 9.716 0 006.685-2.653zm-12.54-1.285A7.486 7.486 0 0112 15a7.486 7.486 0 015.855 2.812A8.224 8.224 0 0112 20.25a8.224 8.224 0 01-5.855-2.438zM15.75 9a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" clip-rule="evenodd" />
-                            </svg>
-                        {% endif %}
-                    </a>
-                </div>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                HrBridge
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item {% if active_page == 'homeEntreprise' %}active{% endif %}">
+                        <a class="nav-link" href="{% url 'homeEntreprise' %}">Accueil</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Contrats</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Paie</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Contactez-nous</a>
+                    </li>
+                </ul>
+                <span class="navbar-text text-white mr-3">{{ request.user.nom }} {{ request.user.prenom }}</span>
+                <a href="{% url 'profile_entreprise' %}" class="nav-link text-white">
+                    {% if request.user.photo_profile %}
+                        <img class="rounded-circle" src="{{ request.user.photo_profile.url }}" alt="Profil" style="height: 2rem; width: 2rem;">
+                    {% else %}
+                        <svg class="h-12 w-12 text-white" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                            <path fill-rule="evenodd" d="M18.685 19.097A9.723 9.723 0 0021.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 003.065 7.097A9.716 9.716 0 0012 21.75a9.716 9.716 0 006.685-2.653zm-12.54-1.285A7.486 7.486 0 0112 15a7.486 7.486 0 015.855 2.812A8.224 8.224 0 0112 20.25a8.224 8.224 0 01-5.855-2.438zM15.75 9a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" clip-rule="evenodd" />
+                        </svg>
+                    {% endif %}
+                </a>
             </div>
         </div>
     </nav>
-    <div class="container mx-auto px-4 py-6">
+    <div class="container py-6">
         <!-- Content goes here -->
         {% block content %}
     
