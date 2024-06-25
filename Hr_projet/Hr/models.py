@@ -63,6 +63,8 @@ class Contrat(models.Model):
         ('JO', ('Par jour')),
         ('HE', ('Par heure')),
     )
+    employe = models.ForeignKey(Employe, on_delete=models.CASCADE) 
+    entreprise = models.ForeignKey(Entreprise, on_delete=models.CASCADE) 
     date_debut = models.DateField()
     date_fin = models.DateField()
     type_contrat=models.CharField(max_length=200)
@@ -82,3 +84,16 @@ class Contrat(models.Model):
 class Clause(models.Model):
     contrat = models.ForeignKey(Contrat, on_delete=models.CASCADE)
     clause = models.TextField(null=True, blank=True)
+
+
+class DemandeEmploye(models.Model):
+    STATUT_CHOICES = (
+        ('EN_ATTENTE', 'En attente'),
+        ('VALIDÉ', 'Validé'),
+        ('REFUSÉ', 'Refusé'),
+    )
+    entreprise = models.ForeignKey(Entreprise, on_delete=models.CASCADE)
+    titre = models.CharField(max_length=200)
+    details = models.TextField()
+    competences_recherchees = models.CharField(max_length=255)
+    statut = models.CharField(max_length=10, choices=STATUT_CHOICES, default='EN_ATTENTE')

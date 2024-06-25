@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Créer un Contrat</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-5">
+    <h2>Créer un Contrat</h2>
+    <form method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="employe" class="form-label">Employé</label>
+            <select class="form-select" id="employe" name="employe">
+                {% for employe in employes %}
+                    <option value="{{ employe.id }}">{{ employe.utilisateur.nom }} {{ employe.utilisateur.prenom }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="entreprise" class="form-label">Entreprise</label>
+            <select class="form-select" id="entreprise" name="entreprise">
+                {% for entreprise in entreprises %}
+                    <option value="{{ entreprise.id }}">{{ entreprise.nom_entreprise }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <!-- Champs remplis automatiquement -->
+        <div class="mb-3">
+            <label for="nom_entreprise_employeur" class="form-label">Nom Entreprise Employeur</label>
+            <input type="text" class="form-control" id="nom_entreprise_employeur" name="nom_entreprise_employeur" readonly>
+        </div>
+        <div class="mb-3">
+            <label for="contact_entreprise" class="form-label">Contact Entreprise</label>
+            <input type="text" class="form-control" id="contact_entreprise" name="contact_entreprise" readonly>
+        </div>
+        <div class="mb-3">
+            <label for="email_entreprise" class="form-label">Email Entreprise</label>
+            <input type="email" class="form-control" id="email_entreprise" name="email_entreprise" readonly>
+        </div>
+        <div class="mb-3">
+            <label for="adresse_entreprise" class="form-label">Adresse Entreprise</label>
+            <input type="text" class="form-control" id="adresse_entreprise" name="adresse_entreprise" readonly>
+        </div>
+        <div class="mb-3">
+            <label for="nom_employe" class="form-label">Nom Employé</label>
+            <input type="text" class="form-control" id="nom_employe" name="nom_employe" readonly>
+        </div>
+        <div class="mb-3">
+            <label for="prenom_employe" class="form-label">Prénom Employé</label>
+            <input type="text" class="form-control" id="prenom_employe" name="prenom_employe" readonly>
+        </div>
+        <div class="mb-3">
+            <label for="contact_employe" class="form-label">Contact Employé</label>
+            <input type="text" class="form-control" id="contact_employe" name="contact_employe" readonly>
+        </div>
+        <div class="mb-3">
+            <label for="email_employe" class="form-label">Email Employé</label>
+            <input type="email" class="form-control" id="email_employe" name="email_employe" readonly>
+        </div>
+        <div class="mb-3">
+            <label for="adresse_employe" class="form-label">Adresse Employé</label>
+            <input type="text" class="form-control" id="adresse_employe" name="adresse_employe" readonly>
+        </div>
+        <!-- Champs que l'utilisateur peut compléter -->
+        <div class="mb-3">
+            <label for="date_debut" class="form-label">Date de début</label>
+            <input type="date" class="form-control" id="date_debut" name="date_debut">
+        </div>
+        <div class="mb-3">
+            <label for="date_fin" class="form-label">Date de fin</label>
+            <input type="date" class="form-control" id="date_fin" name="date_fin">
+        </div>
+        <div class="mb-3">
+            <label for="type_contrat" class="form-label">Type de Contrat</label>
+            <input type="text" class="form-control" id="type_contrat" name="type_contrat">
+        </div>
+        <div class="mb-3">
+            <label for="type_remuneration" class="form-label">Type de Rémunération</label>
+            <select class="form-select" id="type_remuneration" name="type_remuneration">
+                <option value="MO">Par mois</option>
+                <option value="JO">Par jour</option>
+                <option value="HE">Par heure</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="montant" class="form-label">Montant</label>
+            <input type="number" class="form-control" id="montant" name="montant" step="0.01">
+        </div>
+        <button type="submit" class="btn btn-primary">Créer le Contrat</button>
+    </form>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#employe').change(function() {
+            var employeId = $(this).val();
+            $.ajax({
+                url: '/get_employe_details/' + employeId + '/',
+                method: 'GET',
+                success: function(data) {
+                    $('#nom_employe').val(data.nom);
+                    $('#prenom_employe').val(data.prenom);
+                    $('#contact_employe').val(data.contact);
+                    $('#email_employe').val(data.email);
+                    $('#adresse_employe').val(data.adresse);
+                }
+            });
+        });
+
+        $('#entreprise').change(function() {
+            var entrepriseId = $(this).val();
+            $.ajax({
+                url: '/get_entreprise_details/' + entrepriseId + '/',
+                method: 'GET',
+                success: function(data) {
+                    $('#nom_entreprise_employeur').val(data.nom_entreprise);
+                    $('#contact_entreprise').val(data.contact);
+                    $('#email_entreprise').val(data.email);
+                    $('#adresse_entreprise').val(data.adresse);
+                }
+            });
+        });
+    });
+</script>
+</body>
+</html>

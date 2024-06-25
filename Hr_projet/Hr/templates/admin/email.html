@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configurer les paramètres de messagerie</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-5">
+    <h2>Configurer les paramètres de messagerie</h2>
+    <form method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="host" class="form-label">Hôte</label>
+            <input type="text" class="form-control" id="host" name="host" value="{{ email_settings.host }}" required>
+        </div>
+        <div class="mb-3">
+            <label for="port" class="form-label">Port</label>
+            <input type="number" class="form-control" id="port" name="port" value="{{ email_settings.port }}" required>
+        </div>
+        <div class="mb-3">
+            <label for="host_user" class="form-label">Utilisateur SMTP</label>
+            <input type="text" class="form-control" id="host_user" name="host_user" value="{{ email_settings.host_user }}" required>
+        </div>
+        <div class="mb-3">
+            <label for="host_password" class="form-label">Mot de passe SMTP</label>
+            <input type="password" class="form-control" id="host_password" name="host_password" value="{{ email_settings.host_password }}" required>
+        </div>
+        <div class="form-check mb-3">
+            <input class="form-check-input" type="checkbox" id="use_tls" name="use_tls" {% if email_settings.use_tls %}checked{% endif %}>
+            <label class="form-check-label" for="use_tls">
+                Utiliser TLS
+            </label>
+        </div>
+        <div class="form-check mb-3">
+            <input class="form-check-input" type="checkbox" id="use_ssl" name="use_ssl" {% if email_settings.use_ssl %}checked{% endif %}>
+            <label class="form-check-label" for="use_ssl">
+                Utiliser SSL
+            </label>
+        </div>
+        <button type="submit" class="btn btn-primary">Enregistrer</button>
+    </form>
+</div>
+</body>
+</html>

@@ -66,7 +66,30 @@
         <!-- Tableau des utilisateurs -->
         <div class="bg-white shadow-md rounded-lg p-1">
             <table>
- 
+                <thead>
+            <tr>
+                <th>Nom Employé</th>
+                <th>Contact Employé</th>
+                <th>Nom Entreprise</th>
+                <th>Contact Entreprise</th>
+                <th>Type de Rémunération</th>
+                <th>Montant</th>
+                <th>Statut</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for contrat in contrats %}
+            <tr>
+                <td>{{ contrat.nom_employe }} {{ contrat.prenom_employe }}</td>
+                <td>{{ contrat.contact_employe }}</td>
+                <td>{{ contrat.nom_entreprise_employeur }}</td>
+                <td>{{ contrat.contact_entreprise }}</td>
+                <td>{{ contrat.get_type_remuneration_display }}</td>
+                <td>{{ contrat.montant }}</td>
+                <td>{{ contrat.status|yesno:"Actif,Inactif" }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
             </table>
             <div class="flex justify-center items-center mt-4">
                 <button class="scroll-button ml-4 bg-gray-700 hover:bg-gray-200 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" onclick="scrollTable(-1)"><</button>

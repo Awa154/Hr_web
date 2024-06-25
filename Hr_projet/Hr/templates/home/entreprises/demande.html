@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Créer une Demande d'Employé</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-5">
+    <h2>Créer une Demande d'Employé</h2>
+    <form method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="entreprise" class="form-label">Entreprise</label>
+            <input type="text" class="form-control" id="entreprise" value="{{ entreprise.nom_entreprise }}" readonly>
+        </div>
+        <div class="mb-3">
+            <label for="titre" class="form-label">Titre de la Demande</label>
+            <input type="text" class="form-control" id="titre" name="titre" required>
+        </div>
+        <div class="mb-3">
+            <label for="details" class="form-label">Détails</label>
+            <textarea class="form-control" id="details" name="details" rows="3" required></textarea>
+        </div>
+        <div class="mb-3">
+            <label for="competences_recherchees" class="form-label">Compétences Recherchées</label>
+            <input type="text" class="form-control" id="competences_recherchees" name="competences_recherchees" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Envoyer la Demande</button>
+    </form>
+</div>
+</body>
+</html>

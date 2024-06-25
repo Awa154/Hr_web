@@ -1,9 +1,12 @@
 import re
+
+from django.conf import settings
+from django.http import JsonResponse
 from Hr_projet.settings import EMAIL_HOST_USER
 from django.shortcuts import render, redirect
 from django.contrib.auth.hashers import make_password
 from django.contrib import messages
-from .models import Competence, Utilisateurs, Employe, Entreprise, Administrateur
+from .models import Competence, Contrat, DemandeEmploye, EmailSettings, Utilisateurs, Employe, Entreprise, Administrateur
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.hashers import check_password
@@ -503,12 +506,142 @@ def profile_admin(request):
     return render(request, 'admin/profile.html', {'user': user, 'admin_info': admin_info})
 
 
-
+#Fonction pour la création d'un contrat
 def createContrat(request):
+    if request.method == "POST":
+        employe_id = request.POST.get('employe')
+        entreprise_id = request.POST.get('entreprise')
+        
+        employe = Employe.objects.get(id=employe_id)
+        entreprise = Entreprise.objects.get(id=entreprise_id)
+        
+        contrat = Contrat(
+            employe=employe,
+            entreprise=entreprise,
+            date_debut=request.POST.get('date_debut'),
+            date_fin=request.POST.get('date_fin'),
+            type_contrat=request.POST.get('type_contrat'),
+            nom_entreprise_employeur=entreprise.nom_entreprise,
+            contact_entreprise=entreprise.utilisateur.contact,
+            email_entreprise=entreprise.utilisateur.email,
+            adresse_entreprise=entreprise.utilisateur.adresse,
+            nom_employe=employe.utilisateur.nom,
+            prenom_employe=employe.utilisateur.prenom,
+            contact_employe=employe.utilisateur.contact,
+            email_employe=employe.utilisateur.email,
+            adresse_employe=employe.utilisateur.adresse,
+            type_remuneration=request.POST.get('type_remuneration'),
+            montant=request.POST.get('montant'),
+            status=True
+        )
+        contrat.save()
+        return redirect('listeContrat',{'employes': employes, 'entreprises': entreprises})  # Rediriger vers une page de liste des contrats après l'enregistrement
     
+    employes = Employe.objects.all()
+    entreprises = Entreprise.objects.all()
     return render(request,'admin/contrats/create.html')
 
-def listeContrat(request):
-    
-    return render(request,'admin/contrats/liste.html')
+#Fonction pour récupérer les informations sélectionnés pour établir le contrat et remplir directement les champs concernés
+def get_employe_details(request, employe_id):
+    employe = Employe.objects.get(id=employe_id)
+    data = {
+        'nom': employe.utilisateur.nom,
+        'prenom': employe.utilisateur.prenom,
+        'contact': str(employe.utilisateur.contact),
+        'email': employe.utilisateur.email,
+        'adresse': employe.utilisateur.adresse,
+    }
+    return JsonResponse(data)
 
+#Fonction pour récupérer les informations sélectionnés pour établir le contrat et remplir directement les champs concernés
+def get_entreprise_details(request, entreprise_id):
+    entreprise = Entreprise.objects.get(id=entreprise_id)
+    data = {
+        'nom_entreprise': entreprise.nom_entreprise,
+        'contact': str(entreprise.utilisateur.contact),
+        'email': entreprise.utilisateur.email,
+        'adresse': entreprise.utilisateur.adresse,
+    }
+    return JsonResponse(data)
+
+#Fonction pour afficher la liste des contrats
+def listeContrat(request):
+    statut_filtre = request.GET.get('statut', 'tous')
+    
+    if statut_filtre == 'actif':
+        contrats = Contrat.objects.filter(status=True)
+    elif statut_filtre == 'inactif':
+        contrats = Contrat.objects.filter(status=False)
+    else:
+        contrats = Contrat.objects.all()
+    return render(request,'admin/contrats/liste.html',{'contrats': contrats, 'statut_filtre': statut_filtre})
+
+#Fonction pour faire une demande d'employé de la part d'une entreprise
+def creer_demande(request):
+    if not request.user.is_authenticated or not hasattr(request.user, 'entreprise'):
+        return redirect('login')  # Rediriger vers la page de login si l'utilisateur n'est pas connecté ou n'est pas une entreprise
+    
+    entreprise = request.user.entreprise  # Récupérer l'entreprise associée à l'utilisateur connecté
+    
+    if request.method == 'POST':
+        titre = request.POST.get('titre')
+        details = request.POST.get('details')
+        competences_recherchees = request.POST.get('competences_recherchees')
+        
+        demande = DemandeEmploye(
+            entreprise=entreprise,
+            titre=titre,
+            details=details,
+            competences_recherchees=competences_recherchees,
+        )
+        demande.save()
+        
+        return redirect('demande_confirmee')  # Rediriger vers une page de confirmation
+
+    return render(request, 'creer_demande.html', {'entreprise': entreprise})
+
+#Fonction pour envoyer les notifications à l'entreprise qui à fait la demande dans les différents cas
+def envoyer_notification(self):
+    recipient_list= EMAIL_HOST_USER
+    from_email = [self.entreprise.utilisateur.email]
+    if self.statut == 'VALIDÉ':
+        message = f"Votre demande '{self.titre}' a été validée. Un employé correspondant sera contacté sous peu."
+    elif self.statut == 'EN_ATTENTE':
+        message = f"Votre demande '{self.titre}' est en cours de traitement."
+    elif self.statut == 'REFUSÉ':
+        message = f"Nous n'avons trouvé aucun employé correspondant à votre demande '{self.titre}'."
+    
+    send_mail(
+        'Statut de votre demande d\'employé',
+        message,
+        recipient_list,
+        from_email,
+        fail_silently=False,
+    )
+    
+    
+def configurer_email(request):
+    email_settings, created = EmailSettings.objects.get_or_create(id=1)
+
+    if request.method == 'POST':
+        email_settings.host = request.POST.get('host')
+        email_settings.port = request.POST.get('port')
+        email_settings.host_user = request.POST.get('host_user')
+        email_settings.host_password = request.POST.get('host_password')
+        email_settings.use_tls = 'use_tls' in request.POST
+        email_settings.use_ssl = 'use_ssl' in request.POST
+        email_settings.save()
+
+        # Mettre à jour les settings dynamiquement
+        settings.EMAIL_HOST = email_settings.host
+        settings.EMAIL_PORT = email_settings.port
+        settings.EMAIL_HOST_USER = email_settings.host_user
+        settings.EMAIL_HOST_PASSWORD = email_settings.host_password
+        settings.EMAIL_USE_TLS = email_settings.use_tls
+        settings.EMAIL_USE_SSL = email_settings.use_ssl
+
+        return redirect('configurer_email')
+
+    return render(request, 'configurer_email.html', {'email_settings': email_settings})
+    
+    
