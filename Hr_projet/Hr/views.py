@@ -36,7 +36,20 @@ def about(request):
 
 #Fonction pour retourner la vue vers la page de l'administrateur
 def adminPage(request):
-    return render(request,'admin/admin.html')
+    # Récupérer tous les utilisateurs
+    users = Utilisateurs.objects.all()
+
+    # Statistiques
+    total_users = users.count()
+    total_employees = users.filter(role="EM").count()
+    total_partners = users.filter(role="EN").count()
+
+    context = {
+        'total_users': total_users,
+        'total_employees': total_employees,
+        'total_partners': total_partners
+    }
+    return render(request,'admin/admin.html', context)
 
 #Fonction pour activé ou désactivé un utilisateur
 def status(request, user_id):
@@ -605,7 +618,7 @@ def envoyer_notification(self):
     recipient_list= EMAIL_HOST_USER
     from_email = [self.entreprise.utilisateur.email]
     if self.statut == 'VALIDÉ':
-        message = f"Votre demande '{self.titre}' a été validée. Un employé correspondant sera contacté sous peu."
+        message = f"Votre demande '{self.titre}' a été validée. Un employé correspondant à été sélectionné et si vous êtes satisfait, nous pourrons vous établir votre contrat avec cet employé"
     elif self.statut == 'EN_ATTENTE':
         message = f"Votre demande '{self.titre}' est en cours de traitement."
     elif self.statut == 'REFUSÉ':

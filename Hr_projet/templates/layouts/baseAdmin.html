@@ -1,0 +1,126 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Tableau de Bord Admin{% endblock %}</title>
+    <!----Google font ----->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+
+    <!----CSS Files----->
+    <link href="{% static 'assets/css/style.css' %}" rel="stylesheet">
+</head>
+<body>
+    <div class='container'>
+        <!----Sidebar----->
+        <aside>
+            <div class="top">
+                <div class="logo">
+                    <img src="{% static 'assets/image/img1.png' %}">
+                    <h2>Hr<span class="primary">Bridge</span></h2>
+                </div> 
+                <div class="close" id="close-btn">
+                    <span class="material-symbols-outlined">close</span>
+                </div> 
+            </div> 
+            <div class="sidebar">
+                <a href="{% url 'adminPage' %}#" class="sidebar-link">
+                    <span class="material-symbols-outlined">grid_view</span>
+                    <h3>Dashboard</h3>
+                </a>
+                <a href="{% url 'listeCompte' %}" class="sidebar-link">
+                    <span class="material-symbols-outlined">manage_accounts</span>
+                    <h3>Comptes</h3>
+                </a>
+                <!-- Ajoutez la classe 'sidebar-link' à tous les autres liens de la même manière -->
+                <a href="#" class="sidebar-link">
+                    <span class="material-symbols-outlined">contract</span>
+                    <h3>Contrats</h3>
+                </a>
+                <a href="#" class="sidebar-link">
+                    <span class="material-symbols-outlined">list_alt</span>
+                    <h3>Demandes</h3>
+                </a>
+                <a href="#" class="sidebar-link">
+                    <span class="material-symbols-outlined">receipt_long</span>
+                    <h3>Fiche de paies</h3>
+                </a>
+                <a href="#" class="sidebar-link">
+                    <span class="material-symbols-outlined">work</span>
+                    <h3>Annonces</h3>
+                </a>
+                <a href="#" class="sidebar-link">
+                    <span class="material-symbols-outlined">mail</span>
+                    <h3>Messages</h3>
+                </a>
+                <a href="#" class="sidebar-link">
+                    <span class="material-symbols-outlined">report</span>
+                    <h3>Rapports</h3>
+                </a>
+                <a href="#" class="sidebar-link">
+                    <span class="material-symbols-outlined">settings</span>
+                    <h3>Paramètres</h3>
+                </a>
+                <a href="{% url 'logout' %}" class="sidebar-link">
+                    <span class="material-symbols-outlined">logout</span>
+                    <h3>Déconnexion</h3>
+                </a>
+            </div>  
+        </aside>
+        
+        <!----fin Sidebar-----> 
+        <!----Main-----> 
+        <main>
+            <h1>Tableau de bord</h1>
+            <div class="date">
+                <input type="date">
+            </div>
+            {% block content %}
+    
+            {% endblock content %}
+            
+            {% block contenttwo %}
+    
+            {% endblock contenttwo %}
+        </main>
+        <!----fin Main----> 
+        <div class="right">
+            <!----Partie profile----> 
+            <div class="top">
+                <button id="menu-btn">
+                    <span class="material-symbols-outlined">
+                        menu
+                        </span>
+                </button>
+                <div class="theme-toggler">
+                    <span class="material-symbols-outlined active">
+                        light_mode
+                        </span>
+                    <span class="material-symbols-outlined">
+                            dark_mode
+                            </span>
+                </div>
+                <div class="profile">
+                    <div class="info">
+                        <p>Bienvenue, <b> {{ request.user.nom }}</b></p>
+                        <small class="text-muted">{{ user.get_role_display }}</small>
+                    </div>
+                    <div class="profile-photo">
+                        <a href="{% url 'profile_admin' %}" class="active">
+                            {% if request.user.photo_profile %}
+                                <img src="{{ request.user.photo_profile.url }}">
+                            {% else %}
+                                <img src="{% static 'assets/image/user.png' %}">
+                            {% endif %}
+                            
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!----JS script----->
+    <script src="{% static 'script/index.js' %}" rel="stylesheet"></script>
+</body>
+</html>

@@ -1,0 +1,58 @@
+{% extends 'layouts/baseAdmin.html' %}
+{% block contenttwo %}
+    
+   <!----Table-----> 
+   <div class="contrats">
+    <h2>Listes des comptes</h2>
+    <!-- Barre de recherche et bouton de création -->
+    <div class="search-bar-container">
+        <form method="GET" action="{% url 'listeCompte' %}" class="search-form">
+            <div class="search-input-container">
+                <input type="text" name="q" placeholder="Recherche..." class="search-input" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Recherche...'">
+                <span class="material-symbols-outlined search-icon">
+                    manage_search
+                    </span>
+            </div>
+            <button type="submit" class="search-button">Rechercher</button>
+        </form>
+        <a href="{% url 'createCompte' %}" class="create-account-link">Créer Compte</a>
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>Email</th>
+                <th>Contact</th>
+                <th>Adresse</th>
+                <th>Actif</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                {% for user in users %}
+                <td>{{ user.nom }}</td>
+                <td>{{ user.prenom }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.contact }}</td>
+                <td>{{ user.adresse }}</td>
+                <td>
+                    <a href="{% url 'status' user.id %}" class="text-bg-gray-700 hover:text-blue-700">
+                                    {% if user.is_active %}
+                                    <span class="material-symbols-outlined">
+                                        toggle_on
+                                        </span>
+                                    {% else %}
+                                    <span class="material-symbols-outlined">
+                                        toggle_off
+                                        </span>
+                                    {% endif %}</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+<!----fin Table----> 
+{% endblock contenttwo %}
+
