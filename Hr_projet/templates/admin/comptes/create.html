@@ -147,51 +147,7 @@
 </div>
 
 <script>
-    // Gestion des champs de rôles
-    document.addEventListener('DOMContentLoaded', function() {
-        const roleInputs = document.querySelectorAll('input[name="role"]');
-        const employeFields = document.getElementById('employe-fields');
-        const adminFields = document.getElementById('admin-fields');
-        const entrepriseFields = document.getElementById('entreprise-fields');
-
-        roleInputs.forEach(input => {
-            input.addEventListener('change', function() {
-                employeFields.classList.add('hidden');
-                adminFields.classList.add('hidden');
-                entrepriseFields.classList.add('hidden');
-
-                if (this.value === 'EM') {
-                    employeFields.classList.remove('hidden');
-                } else if (this.value === 'AD') {
-                    adminFields.classList.remove('hidden');
-                } else if (this.value === 'EN') {
-                    entrepriseFields.classList.remove('hidden');
-                }
-            });
-        });
-    });
-
-    // Gestion des champs de compétence
-     document.addEventListener('DOMContentLoaded', function() {
-        const addcompetenceButton = document.getElementById('add-competence');
-        const competencesContainer = document.getElementById('competences-container');
     
-        if (addcompetenceButton && competencesContainer) {
-            addcompetenceButton.addEventListener('click', function() {
-                const newcompetenceField = document.createElement('div');
-                newcompetenceField.className = 'mb-4 flex items-center';
-                newcompetenceField.innerHTML = `
-                    <input type="text" name="competences" class="w-full p-2 border border-gray-300 rounded mt-1">
-                    <button type="button" class="ml-2 text-red-500 remove-competence"><i class="fas fa-minus-circle"></i></button>
-                `;
-                competencesContainer.appendChild(newcompetenceField);
-    
-                newcompetenceField.querySelector('.remove-competence').addEventListener('click', function() {
-                    newcompetenceField.remove();
-                });
-            });
-        }
-    });
     
 
     // Ajouter la possibilité de supprimer les champs de compétence existants

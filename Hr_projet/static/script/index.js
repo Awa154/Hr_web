@@ -60,3 +60,45 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 });
+
+//Fonction pour gérer l'affichage des champs caché du formulaire en fonction des rôles
+document.addEventListener('DOMContentLoaded', function() {
+    const roleInputs = document.querySelectorAll('input[name="role"]');
+    const employeFields = document.getElementById('employe-fields');
+    const adminFields = document.getElementById('admin-fields');
+    const entrepriseFields = document.getElementById('entreprise-fields');
+    const addCompetenceButton = document.getElementById('add-competence');
+    const competencesContainer = document.getElementById('competences-container');
+
+    roleInputs.forEach(input => {
+        input.addEventListener('change', function() {
+            employeFields.classList.add('hidden');
+            adminFields.classList.add('hidden');
+            entrepriseFields.classList.add('hidden');
+
+            if (this.value === 'EM') {
+                employeFields.classList.remove('hidden');
+            } else if (this.value === 'AD') {
+                adminFields.classList.remove('hidden');
+            } else if (this.value === 'EN') {
+                entrepriseFields.classList.remove('hidden');
+            }
+        });
+    });
+
+    if (addCompetenceButton && competencesContainer) {
+        addCompetenceButton.addEventListener('click', function() {
+            const newCompetenceField = document.createElement('div');
+            newCompetenceField.className = 'form-group';
+            newCompetenceField.innerHTML = `
+                <input type="text" name="competences" class="competence-field">
+                <button type="button" class="remove-competence">Supprimer</button>
+            `;
+            competencesContainer.appendChild(newCompetenceField);
+
+            newCompetenceField.querySelector('.remove-competence').addEventListener('click', function() {
+                newCompetenceField.remove();
+            });
+        });
+    }
+});

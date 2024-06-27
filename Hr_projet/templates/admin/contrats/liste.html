@@ -1,78 +1,40 @@
 {% extends 'layouts/baseAdmin.html' %}
-{% block content %}
-    <!-- Cards -->
-    {% if messages %}
-        <div class="mb-4">
-            {% for message in messages %}
-                <div class="bg-gray-300 text-black text-center px-4 py-2 rounded shadow-md">
-                    {{ message }}
-                </div>
-            {% endfor %}
-        </div>
-    {% endif %}
-        <!-- Statistiques -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-            <div class="bg-gray-700 p-4 rounded-lg shadow-md relative">
-                <div class="flex items-center justify-between mb-2">
-                    <h3 class="text-xl text-white font-bold text-left">Contrats total</h3>
-                    <svg class="h-12 w-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 20H7a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v7m-4 4h5l-1.5-1.5M19 16l-4 4-1.5-1.5M9 14H7v2h2v-2zM11 12H7v2h4v-2zM13 10H7v2h6v-2zM15 8H7v2h8V8z" />
-                    </svg>
-                </div>
-                <div class="flex justify-end mb-2">
-                    <h4 class="text-xl text-white font-bold text-left">#</h4>
-                </div>
+{% block contenttwo %}
+    
+   <!----Table-----> 
+   <div class="contrats">
+    <h2>Listes des contrats</h2>
+    <!-- Barre de recherche et bouton de création -->
+    <div class="btn-container">
+        <a href="#" class="create-account-link"><span class="material-symbols-outlined">
+            list_alt
+            </span><h3>En cours</h3></a>
+        <a href="#" class="create-account-link"><span class="material-symbols-outlined">
+            list_alt
+            </span><h3>Terminer</h3></a>
+        <a href="{% url 'createContrat' %}" class="create-account-link"><span class="material-symbols-outlined">
+            add
+            </span><h3>Ajouter</h3></a>
+    </div>
+    <div class="search-bar-container">
+        <form method="GET" action="{% url 'listeCompte' %}" class="search-form">
+            <div class="search-input-container">
+                <input type="text" name="q" placeholder="Recherche..." class="search-input" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Recherche...'">
+                <span class="material-symbols-outlined search-icon">
+                    manage_search
+                    </span>
             </div>
-            <div class="bg-white p-4 rounded-lg shadow-md relative">
-                <div class="flex items-center justify-between mb-2">
-                    <h3 class="text-xl text-gray-700 font-bold text-left">Contrats en cours</h3>
-                    <svg class="h-12 w-12 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 20H7a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v7m-4 4h5l-1.5-1.5M19 16l-4 4-1.5-1.5M9 14H7v2h2v-2zM11 12H7v2h4v-2zM13 10H7v2h6v-2zM15 8H7v2h8V8z" />
-                    </svg>
-                      
-                </div>
-                <div class="flex justify-end mb-2">
-                    <h4 class="text-xl text-gray-700 font-bold text-left">#</h4>
-                </div>
-            </div>
-            <div class="bg-gray-700 p-4 rounded-lg shadow-md relative">
-                <div class="flex items-center justify-between mb-2">
-                    <h3 class="text-xl text-white font-bold text-left">Contrats terminer</h3>
-                    <svg class="h-12 w-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 20H7a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v7m-4 4h5l-1.5-1.5M19 16l-4 4-1.5-1.5M9 14H7v2h2v-2zM11 12H7v2h4v-2zM13 10H7v2h6v-2zM15 8H7v2h8V8z" />
-                    </svg>
-                </div>
-                <div class="flex justify-end mb-2">
-                    <h4 class="text-xl text-white font-bold text-left">#</h4>
-                </div>
-            </div>
-        </div>
-        <!-- Barre de recherche et bouton de création -->
-        <div class="flex justify-between items-center mb-4">
-            <form method="GET" action="#" class="flex items-center">
-                <div class="relative w-full">
-                    <input type="text" name="q" placeholder="Recherche..." class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline pl-10">
-                    <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                        <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35M9 3a7 7 0 100 14 7 7 0 000-14z"></path>
-                        </svg>
-                    </div>
-                </div>
-                <button type="submit" class="ml-4 bg-gray-700 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Rechercher</button>
-            </form>
-            <a href="{% url 'createContrat' %}" class="bg-gray-700 rounded-md text-sm font-bold leading-6 text-white hover:bg-gray-500 py-2 px-4">Créer un contrat</a>
-        </div>
-
-        <!-- Tableau des utilisateurs -->
-        <div class="bg-white shadow-md rounded-lg p-1">
-            <table>
-                <thead>
+            <button type="submit" class="search-button">Rechercher</button>
+        </form>
+    </div>
+    <table>
+        <thead>
             <tr>
-                <th>Nom Employé</th>
+                <th>Entreprise</th>
+                <th>Employé</th>
                 <th>Contact Employé</th>
-                <th>Nom Entreprise</th>
                 <th>Contact Entreprise</th>
-                <th>Type de Rémunération</th>
+                <th>Rémunération par</th>
                 <th>Montant</th>
                 <th>Statut</th>
             </tr>
@@ -90,12 +52,10 @@
             </tr>
             {% endfor %}
         </tbody>
-            </table>
-            <div class="flex justify-center items-center mt-4">
-                <button class="scroll-button ml-4 bg-gray-700 hover:bg-gray-200 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" onclick="scrollTable(-1)"><</button>
-                <button class=" scroll-button ml-4 bg-gray-700 hover:bg-gray-200 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" onclick="scrollTable(1)">></button>
-            </div>
-        </div>
-   
-{% endblock content %}
+    </table>
+</div>
+<!----fin Table----> 
+{% endblock contenttwo %}
+
+
 

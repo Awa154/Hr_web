@@ -1,62 +1,57 @@
 {% extends 'layouts/baseAdmin.html' %}
-{% block content %}
-    <!-- Cards -->
-    {% if messages %}
-        <div class="mb-4">
-            {% for message in messages %}
-                <div class="bg-gray-700 text-black text-center px-4 py-2 rounded shadow-md">
-                    {{ message }}
-                </div>
-            {% endfor %}
-        </div>
-    {% endif %}
-
-        <!-- Barre de recherche -->
-        <div class="flex justify-between items-center mb-4">
-            <form method="GET" action="{% url 'listeEntreprise' %}" class="flex items-center">
-                <div class="relative w-full">
-                    <input type="text" name="q" placeholder="Recherche..." class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline pl-10">
-                    <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                        <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35M9 3a7 7 0 100 14 7 7 0 000-14z"></path>
-                        </svg>
-                    </div>
-                </div>
-                <button type="submit" class="ml-4 bg-gray-400 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Rechercher</button>
-            </form>
-        </div>
-
-        <!-- Tableau des utilisateurs -->
-        <div class="bg-white shadow-md rounded-lg p-1">
-            <table>
-                <thead>
-                    <tr>
-                        <th class="py-2 px-4 border-b border-gray-200">Nom de l'entreprise</th>
-                        <th class="py-2 px-4 border-b border-gray-200">Nom du responsable</th>
-                        <th class="py-2 px-4 border-b border-gray-200">Prénom du responsable</th>
-                        <th class="py-2 px-4 border-b border-gray-200">Email</th>
-                        <th class="py-2 px-4 border-b border-gray-200">Contact</th>
-                        <th class="py-2 px-4 border-b border-gray-200">Adresse</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for entreprise in entreprises %}
-                    <tr>
-                        <td class="py-2 px-4 border-b border-gray-200">{{ entreprise.nom_entreprise }}</td>
-                        <td class="py-2 px-4 border-b border-gray-200">{{ entreprise.utilisateur.nom }}</td>
-                        <td class="py-2 px-4 border-b border-gray-200">{{ entreprise.utilisateur.prenom }}</td>
-                        <td class="py-2 px-4 border-b border-gray-200">{{ entreprise.utilisateur.email }}</td>
-                        <td class="py-2 px-4 border-b border-gray-200">{{ entreprise.utilisateur.contact }}</td>
-                        <td class="py-2 px-4 border-b border-gray-200">{{ entreprise.utilisateur.adresse }}</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-            <div class="flex justify-center items-center mt-4">
-                <button class="scroll-button ml-4 bg-gray-400 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" onclick="scrollTable(-1)"><</button>
-                <button class=" scroll-button ml-4 bg-gray-400 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" onclick="scrollTable(1)">></button>
+{% block contenttwo %}
+    
+   <!----Table-----> 
+   <div class="contrats">
+    <h2>Listes des Partenaires</h2>
+    <!-- Barre de recherche et bouton de création -->
+    <div class="btn-container">
+        <a href="{% url 'listeCompte' %}" class="create-account-link"><span class="material-symbols-outlined">
+            list_alt
+            </span><h3>Comptes</h3></a>
+        <a href="{% url 'listeEmploye' %}" class="create-account-link"><span class="material-symbols-outlined">
+            list_alt
+            </span><h3>Employés</h3></a>
+        <a href="{% url 'createCompte' %}" class="create-account-link"><span class="material-symbols-outlined">
+            add
+            </span><h3>Ajouter</h3></a>
+    </div>
+    <div class="search-bar-container">
+        <form method="GET" action="{% url 'listeEntreprise' %}" class="search-form">
+            <div class="search-input-container">
+                <input type="text" name="q" placeholder="Recherche..." class="search-input" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Recherche...'">
+                <span class="material-symbols-outlined search-icon">
+                    manage_search
+                    </span>
             </div>
-        </div>
-   
-{% endblock content %}
+            <button type="submit" class="search-button">Rechercher</button>
+        </form>
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>Nom de l'entreprise</th>
+                <th>Nom du responsable</th>
+                <th>Prénom du responsable</th>
+                <th>Email</th>
+                <th>Contact</th>
+                <th>Adresse</th>
+            </tr>
+        </thead>
+        <tbody>
+                {% for entreprise in entreprises %}
+                <tr>
+                    <td>{{ entreprise.nom_entreprise }}</td>
+                    <td>{{ entreprise.utilisateur.nom }}</td>
+                    <td>{{ entreprise.utilisateur.prenom }}</td>
+                    <td>{{ entreprise.utilisateur.email }}</td>
+                    <td>{{ entreprise.utilisateur.contact }}</td>
+                    <td>{{ entreprise.utilisateur.adresse }}</td>
+                </tr>
+                {% endfor %}
+        </tbody>
+    </table>
+</div>
+<!----fin Table----> 
+{% endblock contenttwo %}
 
