@@ -1,56 +1,15 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <style>
-        body {
-            background-color: #343a40; /* Couleur sombre */
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .login-container {
-            background: white;
-            padding: 2rem;
-            border-radius: 0.5rem;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); /* Ombre plus prononcée */
-            position: relative;
-        }
-        .login-container .form-group input {
-            height: 3rem;
-            border-radius: 0.5rem;
-            font-weight: 600; /* font-semibold */
-            width:20rem;
-        }
-        .login-container button {
-            height: 2.5rem; /* Ajustez la hauteur du bouton */
-            border-radius: 0.5rem;
-            font-size: 0.875rem; /* Taille du texte plus petite */
-            font-weight: 600; /* font-semibold */
-            font-size: 1rem; /* Taille du texte plus petite */
-        }
-        .forgot-password {
-            text-align: right;
-            margin-bottom: 1rem;
-            font-weight: 600; /* font-semibold */
-        }
-        label {
-            font-weight: 600; /* font-semibold */
-        }
-        .back-button {
-            position: absolute;
-            top: 1rem;
-            left: 1rem;
-        }
-    </style>
+    <!----Bootstrap Files----->
+    <link href="{% static 'assets/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <!----CSS Files----->
+    <link href="{% static 'assets/css/auth.css' %}" rel="stylesheet">
 </head>
 <body>
     <div class="login-container">
@@ -58,6 +17,7 @@
     
         {% endblock content %}
     </div>
+    <script src="{% static 'assets/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
 </body>
 </html>
 

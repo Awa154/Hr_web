@@ -556,6 +556,7 @@ textarea {
     height: 100px;
 }
 
+/* Style pour les boutons radio */
 .role-options {
     display: flex;
     justify-content: space-between;
@@ -564,11 +565,29 @@ textarea {
 .role-option {
     display: flex;
     align-items: center;
+    margin-right: 10px;
 }
 
 .role-option input {
     margin-right: 5px;
+    cursor: pointer;
 }
+/* Style pour les boutons radio eux-mêmes */
+input[type="radio"] {
+    display: none;
+}
+
+input[type="radio"] + label {
+    padding: 0.3rem 0.5rem;
+    border: 1px solid #ccc;
+    cursor: pointer;
+}
+
+input[type="radio"]:checked + label {
+    border: 1px solid #000;
+    background-color: #f0f0f0;
+}
+
 
 .hidden {
     display: none;
@@ -775,3 +794,4 @@ textarea {
         font-weight: 2rem;
     }
 }
+

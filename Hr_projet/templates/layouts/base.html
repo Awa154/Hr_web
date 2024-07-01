@@ -1,48 +1,40 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <style>
-        .nav-item.active {
-            border-bottom: 2px solid #0f0c29; /* Couleur bleue pour la barre active */
-            color: #0f0c29; /* Texte noir */
-        }
-    </style>
+    <!----Bootstrap Files----->
+    <link href="{% static 'assets/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <!----CSS Files----->
+    <link href="{% static 'assets/css/home.css' %}" rel="stylesheet">
 </head>
 <body class="bg-white">
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark shadow-sm">
-        <div class="container">
-            <a class="navbar-brand" href="#">
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand text-upercase mx-4 py-3" href="#">
                 HrBridge
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item {% if active_page == 'home' %}active{% endif %}">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item pe-4 {% if active_page == 'home' %}active{% endif %}">
                         <a class="nav-link" href="{% url 'home' %}">Accueil</a>
                     </li>
-                    <li class="nav-item {% if active_page == 'services' %}active{% endif %}">
-                        <a class="nav-link" href="{% url 'services' %}">Services</a>
-                    </li>
-                    <li class="nav-item {% if active_page == 'annonces' %}active{% endif %}">
+                    <li class="nav-item pe-4 {% if active_page == 'annonces' %}active{% endif %}">
                         <a class="nav-link" href="{% url 'annonces' %}">Annonces</a>
                     </li>
-                    <li class="nav-item {% if active_page == 'about' %}active{% endif %}">
+                    <li class="nav-item pe-4 {% if active_page == 'about' %}active{% endif %}">
                         <a class="nav-link" href="{% url 'about' %}">A propos</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link font-semibold" href="#">Contactez-nous</a>
+                    <li class="nav-item pe-4">
+                        <a class="nav-link" href="#">Contactez-nous</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="btn btn-light text-dark font-weight-bold py-2 px-4" href="{% url 'login' %}">Se connecter</a>
+                    <li class="nav-item pe-4">
+                        <a class="btn btn-light font-weight-bold" href="{% url 'login' %}">Se connecter</a>
                     </li>
                 </ul>
             </div>
@@ -54,5 +46,27 @@
     
         {% endblock content %}
     </div>
+    <footer class="bg-dark text-white text-center py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h5>HrBridge</h5>
+                    <p>Votre partenaire pour la gestion des ressources humaines.</p>
+                </div>
+                <div class="col-md-4">
+                    <h5>Contact</h5>
+                    <p>Email: kemiadjiou071@gmail.com</p>
+                    <p>Téléphone: +33 1 23 45 67 89</p>
+                </div>
+                <div class="col-md-4">
+                    <h5>Adresse</h5>
+                    <p>123 Avenou, Lomé, TOGO</p>
+                </div>
+            </div>
+            <p class="mt-3">&copy; 2024 HrBridge. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <script src="{% static 'assets/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
 </body>
 </html>

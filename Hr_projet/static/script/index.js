@@ -61,7 +61,8 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
-//Fonction pour gérer l'affichage des champs caché du formulaire en fonction des rôles
+
+// Gestion des champs de rôles
 document.addEventListener('DOMContentLoaded', function() {
     const roleInputs = document.querySelectorAll('input[name="role"]');
     const employeFields = document.getElementById('employe-fields');
@@ -72,16 +73,16 @@ document.addEventListener('DOMContentLoaded', function() {
 
     roleInputs.forEach(input => {
         input.addEventListener('change', function() {
-            employeFields.classList.add('hidden');
-            adminFields.classList.add('hidden');
-            entrepriseFields.classList.add('hidden');
+            employeFields.classList.add('d-none');
+            adminFields.classList.add('d-none');
+            entrepriseFields.classList.add('d-none');
 
             if (this.value === 'EM') {
-                employeFields.classList.remove('hidden');
+                employeFields.classList.remove('d-none');
             } else if (this.value === 'AD') {
-                adminFields.classList.remove('hidden');
+                adminFields.classList.remove('d-none');
             } else if (this.value === 'EN') {
-                entrepriseFields.classList.remove('hidden');
+                entrepriseFields.classList.remove('d-none');
             }
         });
     });
@@ -91,8 +92,8 @@ document.addEventListener('DOMContentLoaded', function() {
             const newCompetenceField = document.createElement('div');
             newCompetenceField.className = 'form-group';
             newCompetenceField.innerHTML = `
-                <input type="text" name="competences" class="competence-field">
-                <button type="button" class="remove-competence">Supprimer</button>
+                <input type="text" name="competences" class="form-control mt-2">
+                <button type="button" class="btn btn-link text-danger remove-competence">Supprimer</button>
             `;
             competencesContainer.appendChild(newCompetenceField);
 
@@ -102,3 +103,4 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
+

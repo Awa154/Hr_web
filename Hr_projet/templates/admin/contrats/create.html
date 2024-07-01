@@ -1,136 +1,140 @@
-{% extends 'layouts/baseAdmin.html' %}
-{% block content %}
-<div class="bg-white shadow-md rounded-lg p-8 mx-auto max-w-screen-md">
-    {% if messages %}
-        <div class="mb-4">
-            {% for message in messages %}
-                <div class="bg-gray-700 text-black text-center px-4 py-2 rounded shadow-md">
-                    {{ message }}
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Créer un Contrat</title>
+    <!-- Google Font -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+    <!-- CSS Files -->
+    <link href="{% static 'assets/css/step.css' %}" rel="stylesheet">
+</head>
+<body>
+    <div id="page" class="site">
+        <div class="container">
+            <div class="form-box">
+                <div class="progress">
+                    <div class="logo">
+                        <a href="#"><span>Hr</span>Bridge</a>
+                    </div>
+                    <ul class="progress-steps">
+                        <li class="step active">
+                            <span>1</span>
+                            <p>Choisir l'employé</p>
+                        </li>
+                        <li class="step">
+                            <span>2</span>
+                            <p>Choisir l'entreprise</p>
+                        </li>
+                        <li class="step">
+                            <span>3</span>
+                            <p>Complèter le reste</p>
+                        </li>
+                    </ul>
                 </div>
-            {% endfor %}
-        </div>
-    {% endif %}
-    <form method="POST" enctype="multipart/form-data">
-        {% csrf_token %}
-        <h2 class="text-2xl font-bold mb-6 text-center">Créer un contrat</h2>
-        <p class="mt-1 text-sm leading-6 text-gray-600">Veuillez remplir les informations suivantes pour créer le contrat.</p>
-        <div class="mb-4 flex space-x-4">
-            <div class="w-1/2">
-                <label for="date_debut" class="block text-gray-700 font-bold">Date de début du contrat:</label>
-                <input type="Date" name="date_debut" id="date_debut" class="w-full p-2 border border-gray-300 rounded mt-1" required>
-            </div>
-            <div class="w-1/2">
-                <label for="date_fin" class="block text-gray-700 font-bold">Date de fin ébut du contrat:</label>
-                <input type="Date" name="date_fin" id="date_fin" class="w-full p-2 border border-gray-300 rounded mt-1" required>
-            </div>
-        </div>
-        <div class="mb-4 flex space-x-4">
-            <div class="w-1/2">
-                <label for="nom_entreprise_employeur" class="block text-gray-700 font-bold">Nom de l'entreprise employeur:</label>
-                <input type="text" name="nom_entreprise_employeur" id="nom_entreprise_employeur" class="w-full p-2 border border-gray-300 rounded mt-1" required>
-            </div>
-            <div class="w-1/2">
-                <label for="adresse_entreprise" class="block text-gray-700 font-bold">Adresse de l'entreprise:</label>
-                <input type="text" name="adresse_entreprise" id="adresse_entreprise" class="w-full p-2 border border-gray-300 rounded mt-1" required>
-            </div>
-        </div>
-        <div class="mb-4 flex space-x-4">
-            <div class="w-1/2">
-                <label for="contact_entreprise" class="block text-gray-700 font-bold">Contact de l'entreprise:</label>
-                <input type="tel" name="contact_entreprise" id="contact_entreprise" class="w-full p-2 border border-gray-300 rounded mt-1">
-            </div>
-            <div class="w-1/2">
-                <label for="email_entreprise" class="block text-gray-700 font-bold">Email de l'entreprise:</label>
-                <input type="email_entreprise" name="email_entreprise" id="email_entreprise" class="w-full p-2 border border-gray-300 rounded mt-1" required>
-            </div>
-        </div>
-        <div class="mb-4 flex space-x-4">
-            <div class="w-1/2">
-                <label for="nom_employe" class="block text-gray-700 font-bold">Nom de l'employé:</label>
-                <input type="text" name="nom_employe" id="nom_employe" class="w-full p-2 border border-gray-300 rounded mt-1" required>
-            </div>
-            <div class="w-1/2">
-                <label for="prenom_employe" class="block text-gray-700 font-bold">Prénom de l'employé:</label>
-                <input type="text" name="prenom_employe" id="prenom_employe" class="w-full p-2 border border-gray-300 rounded mt-1" required>
-            </div>
-        </div>
-        <div class="mb-4 flex space-x-4">
-            <div class="w-2/4">
-                <label for="email_employe" class="block text-gray-700 font-bold">Email de l'employé:</label>
-                <input type="text" name="email_employe" id="email_employe" class="w-full p-2 border border-gray-300 rounded mt-1" required>
-            </div>
-            <div class="w-1/4">
-                <label for="contact_employe" class="block text-gray-700 font-bold">Contact de l'employé:</label>
-                <input type="tel" name="contact_employe" id="contact_employe" class="w-full p-2 border border-gray-300 rounded mt-1">
-            </div>
-            <div class="w-1/4">
-                <label for="adresse_employe" class="block text-gray-700 font-bold">Adresse de l'employé:</label>
-                <input type="text" name="adresse_employe" id="adresse_employe" class="w-full p-2 border border-gray-300 rounded mt-1" required>
-            </div>
-        </div>
-        <div class="mb-4 flex items-center">
-            <div class="w-3/4">
-                <label for="type_remuneration" class="block text-gray-700 font-bold mr-2">Type de rémunération:</label>
-                <div class="flex space-x-4">
-                    <div class="flex items-center">
-                        <input type="radio" name="type_remuneration" value=MO class="mr-1">
-                        <label class="block text-gray-600 text-sm font-bold mr-2">Par mois</label>
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="form-one form-step active">
+                        <h2>Employé</h2>
+                        <label for="employe" class="form-label">Employé</label>
+                        <select class="form-select" id="employe" name="employe">
+                            <option value="">Sélectionner un employé</option>
+                            {% for employe in employes %}
+                                <option value="{{ employe.id }}">{{ employe.utilisateur.nom }} {{ employe.utilisateur.prenom }}</option>
+                            {% endfor %}
+                        </select>
                     </div>
-                    <div class="flex items-center">
-                        <input type="radio" name="type_remuneration" value=JO class="mr-1">
-                        <label class="block text-gray-600 text-sm font-bold mr-2">Par jour</label>
+                    <div class="form-two form-step">
+                        <h2>Entreprise</h2>
+                        <label for="entreprise" class="form-label">Entreprise</label>
+                        <select class="form-select" id="entreprise" name="entreprise">
+                            <option value="">Sélectionner </option>
+                            {% for entreprise in entreprises %}
+                                <option value="{{ entreprise.id }}">{{ entreprise.nom_entreprise }}</option>
+                            {% endfor %}
+                        </select>
                     </div>
-                    <div class="flex items-center">
-                        <input type="radio" name="type_remuneration" value=HE class="mr-1">
-                        <label class="block text-gray-600 text-sm font-bold mr-2">Par heure</label>
+                    <div class="form-three form-step">
+                        <h2>Créer le contrat</h2>
+                        <!-- Champs que l'utilisateur peut compléter -->
+                        <div>
+                            <label for="date_debut" class="form-label">Date de début</label>
+                            <input type="date" class="form-control" id="date_debut" name="date_debut">
+                        </div>
+                        <div>
+                            <label for="date_fin" class="form-label">Date de fin</label>
+                            <input type="date" class="form-control" id="date_fin" name="date_fin">
+                        </div>
+                        <div>
+                            <label for="type_contrat" class="form-label">Type de Contrat</label>
+                            <input type="text" class="form-control" id="type_contrat" name="type_contrat">
+                        </div>
+                        <div>
+                            <label for="type_remuneration" class="form-label">Type de Rémunération</label>
+                            <select class="form-select" id="type_remuneration" name="type_remuneration">
+                                <option value="">Payemment </option>
+                                <option value="MO">Par mois</option>
+                                <option value="JO">Par jour</option>
+                                <option value="HE">Par heure</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="montant" class="form-label">Montant</label>
+                            <input type="number" class="form-control" id="montant" name="montant" step="0.01">
+                        </div>
+                        <!-- Champs remplis automatiquement -->
+                        <div>
+                            <label for="nom_entreprise_employeur" class="form-label">Nom Entreprise</label>
+                            <input type="text" class="form-control" id="nom_entreprise_employeur" name="nom_entreprise_employeur">
+                        </div>
+                        <div>
+                            <label for="contact_entreprise" class="form-label">Contact Entreprise</label>
+                            <input type="text" class="form-control" id="contact_entreprise" name="contact_entreprise">
+                        </div>
+                        <div>
+                            <label for="email_entreprise" class="form-label">Email Entreprise</label>
+                            <input type="email" class="form-control" id="email_entreprise" name="email_entreprise">
+                        </div>
+                        <div>
+                            <label for="adresse_entreprise" class="form-label">Adresse Entreprise</label>
+                            <input type="text" class="form-control" id="adresse_entreprise" name="adresse_entreprise">
+                        </div>
+                        <div>
+                            <label for="nom_employe" class="form-label">Nom Employé</label>
+                            <input type="text" class="form-control" id="nom_employe" name="nom_employe">
+                        </div>
+                        <div>
+                            <label for="prenom_employe" class="form-label">Prénom Employé</label>
+                            <input type="text" class="form-control" id="prenom_employe" name="prenom_employe">
+                        </div>
+                        <div>
+                            <label for="contact_employe" class="form-label">Contact Employé</label>
+                            <input type="text" class="form-control" id="contact_employe" name="contact_employe">
+                        </div>
+                        <div>
+                            <label for="email_employe" class="form-label">Email Employé</label>
+                            <input type="email" class="form-control" id="email_employe" name="email_employe">
+                        </div>
+                        <div>
+                            <label for="adresse_employe" class="form-label">Adresse Employé</label>
+                            <input type="text" class="form-control" id="adresse_employe" name="adresse_employe">
+                        </div>
+                        <div>
+                            <label for="clause" class="form-label">Adresse Employé</label>
+                            <input type="text" class="form-control" id="clause" name="clause">
+                        </div>
                     </div>
-                </div>
-            </div>
-            <div class="mt-6 flex items-center justify-end gap-x-2 w-1/4">
-                <label for="montant" class="block text-gray-700 font-bold">Montant:</label>
-                <input type="number" name="montant" id="montant" class="w-full p-2 border border-gray-300 rounded mt-1" required>
+                    <div class="btn-group">
+                        <button type="button" class="btn-prev" disabled>Retour</button>
+                        <button type="button" class="btn-next">Suivant</button>
+                        <button type="submit" class="btn-save">Enregistrer</button>
+                    </div>
+                </form>
             </div>
         </div>
-        <div class="mb-4 flex space-x-4">
-            <div class="w-3/4">
-                <div id="clauses-container">
-                    <div class="mb-4 flex items-center">
-                        <label for="clauses" class="block text-gray-700 font-bold">Clauses:</label>
-                <button type="button" id="add-clause" class="text-green-500 ml-2"><i class="fas fa-plus-circle"></i></button>
-                    </div>
-                    <input type="text" name="clause" id="clause" class="w-full p-2 border border-gray-300 rounded mt-1" required>
-                </div>
-            </div>
-        </div>
-        <div class="mt-6 flex items-center justify-end gap-x-6">
-            <a href="{% url 'listeContrat' %}" class="rounded-md text-sm font-semibold leading-6 text-gray-900 hover:bg-gray-400 py-2 px-4">
-                Annuler
-            </a>
-            <button type="submit" class="rounded-md bg-gray-700 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-sky-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Enregistrer</button>
-        </div>
-    </form>
-</div>
-<script>
-// Gestion des champs de compétence
-     document.addEventListener('DOMContentLoaded', function() {
-        const addclauseButton = document.getElementById('add-clause');
-        const clausesContainer = document.getElementById('clauses-container');
-    
-        if (addclauseButton && clausesContainer) {
-            addclauseButton.addEventListener('click', function() {
-                const newclauseField = document.createElement('div');
-                newclauseField.className = 'mb-4 flex items-center';
-                newclauseField.innerHTML = `
-                    <input type="text" name="clause" id="clause" class="w-full p-2 border border-gray-300 rounded mt-1" required>
-                    <button type="button" class="ml-2 text-red-500 remove-clause"><i class="fas fa-minus-circle"></i></button>
-                `;
-                clausesContainer.appendChild(newclauseField);
-    
-                newclauseField.querySelector('.remove-clause').addEventListener('click', function() {
-                    newclauseField.remove();
-                });
-            });
-        }
-    });
-</script>
-{% endblock content %}
+    </div>
+    <!-- JS script -->
+    <script src="{% static 'script/step.js' %}"></script>
+</body>
+</html>

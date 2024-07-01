@@ -1,0 +1,44 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600;700;800&display=swap');
+body {
+    background-color: #343a40; /* Couleur sombre */
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    font-family: poppins, sans-serif;
+    justify-content: center;
+}
+.login-container {
+    background: white;
+    padding: 2rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); /* Ombre plus prononcée */
+    position: relative;
+}
+.login-container .form-group input {
+    height: 3rem;
+    border-radius: 0.5rem;
+    font-weight: 600; /* font-semibold */
+    width:20rem;
+}
+.login-container button {
+    height: 2.5rem; /* Ajustez la hauteur du bouton */
+    border-radius: 0.5rem;
+    font-size: 0.875rem; /* Taille du texte plus petite */
+    font-weight: 600; /* font-semibold */
+    font-size: 1rem; /* Taille du texte plus petite */
+    align-items: center;
+    width: 10rem;
+}
+.forgot-password {
+    text-align: right;
+    margin-bottom: 1rem;
+    font-weight: 600; /* font-semibold */
+}
+label {
+    font-weight: 600; /* font-semibold */
+}
+.back-button {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+}

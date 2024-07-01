@@ -552,7 +552,7 @@ def createContrat(request):
     
     employes = Employe.objects.all()
     entreprises = Entreprise.objects.all()
-    return render(request,'admin/contrats/create.html')
+    return render(request,'admin/contrats/create.html',{'employes': employes, 'entreprises': entreprises})
 
 #Fonction pour récupérer les informations sélectionnés pour établir le contrat et remplir directement les champs concernés
 def get_employe_details(request, employe_id):

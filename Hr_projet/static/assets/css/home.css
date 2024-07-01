@@ -1,0 +1,120 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600;700;800&display=swap');
+
+/*------------- ligth theme -----------------*/
+:root {
+    --color-primary: #7380ec; 
+    --color-danger: #ff7782; --color-success: #41f1b6; 
+    --color-warning: #ffbb55;
+    --color-white: #fff;
+    --color-info-dark: #7d8da1;
+    --color-info-light: #dceleb;
+    --color-dark: #363949;
+    --color-light: #e3e3f4;
+    --color-primary-variant: #111e88;
+    --color-dark-variant: #677483;
+    --color-background: #efeff8;
+    --card-border-radius: 2rem;
+    --border-radius-1: 0.4rem;
+    --border-radius-2: 0.8rem;
+    --border-radius-3: 1.2rem;
+    --card-padding: 1.8rem;
+    --padding-1: 1.2em;
+    --box-shadow: 0 2rem 3rem var(--color-light);
+}
+
+/*------------- dark thème -----------------*/
+.dark-theme-variables{
+    --color-background: #181a1e;
+    --color-white: #202528;
+    --color-dark: #edeffd;
+    --color-dark-variant: #a3bdcc;
+    --color-light: rgba(0, 0, 0, 0.4);
+    --box-shadow: 0 2rem 3rem var(--color-light);
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    outline: 0;
+    appearance: none;
+    border:0;
+    text-decoration: none;
+    list-style: none;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 14px;
+}
+    
+body {
+    width: 100vw;
+    height: 100vh;
+    font-family: poppins, sans-serif;
+    font-size: 0.88rem;
+    background: var(--color-background);
+    user-select: none;
+    overflow-x: hidden;
+}
+
+/*------------- Accueil -----------------*/
+.nav-item.active {
+    border-bottom: 2px solid #f1f1f8; /* Couleur bleue pour la barre active */
+    color: #f2f1f7; /* Texte noir */
+}
+
+.navbar {
+    background-color: #070808; /* Dark background color */
+}
+
+.carousel-caption {
+    background: rgba(0, 0, 0, 0.5);
+    padding: 1rem;
+    border-radius: 10px;
+    align-content: center;
+}
+
+.card {
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card-body i {
+    color: #212529; /* Dark icon color */
+}
+
+footer {
+    background-color: #212529; /* Dark background color */
+}
+
+footer h5, footer p {
+    color: #ffffff;
+}
+
+footer .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+footer .row {
+    width: 100%;
+    justify-content: center;
+}
+
+footer .col-md-4 {
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+img{
+    display: block;
+    height: 40rem;
+    
+}
